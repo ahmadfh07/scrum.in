@@ -1,0 +1,25 @@
+<% if(typeof errors!='undefined' ) { %>
+<% errors.forEach(function(error){ %>
+<div class="alert alert-danger">
+  <%= error.msg %> <p>ini error_undefined</p>
+</div>
+<% }) %>
+<% } %>
+
+<% if(success_msg!='' ) { %>
+<div class="alert alert-success">
+  <%=success_msg %>
+</div>
+<% } %>
+
+<% if(error_msg !='' ) { %>
+<div class="alert alert-warning">
+  <%= error_msg %> <p>ini error_msg</p>
+</div>
+<% } %>
+
+<% if(error !='' ) { %>
+<div class="alert alert-danger">
+  <%= error %> <p>ini error</p>
+</div>
+<% } %>
