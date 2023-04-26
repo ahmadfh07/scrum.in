@@ -1,16 +1,70 @@
-<form action="/signup" method="post">
-  <%- include("./component/messages") %>
-  <label for="fName">First Name</label>
-  <input type="text" name="fName" id="fName">
-  <label for="lName">Last Name</label>
-  <input type="text" name="lName" id="lName">
-  <label for="username">First Name</label>
-  <input type="text" name="username" id="username">
-  <label for="email">Email</label>
-  <input type="email" name="email" id="email">
-  <label for="password">First Name</label>
-  <input type="password" name="password" id="password">
-  <label for="password2">First Name</label>
-  <input type="password" name="password2" id="password2">
-  <button class="btn btn-primary" id="tombol" type="submit">Buat Akun</button>
-</form>
+<!-- Background Keseluruhan -->
+<section class=" flex flex-row">
+  <!-- Kiri -->
+  <div class="flex flex-col w-1/3 relative bg-[#4B6D5F] ">
+      <img class="absolute w-12 text-white font-semibold top-12 left-12" src="/public/assets/logo_scrumin.png" alt="">
+      <h1 class="absolute text-4xl text-white m-auto font-black top-64 left-1/3 -translate-x-1/3 -translate-y-1/2 items-center justify-center">CREATE YOUR ACCOUNT</h1>
+      <h2 class="absolute text-sm text-white font-light top-96 left-1/3 -translate-x-1/3 -translate-y-1/2 items-center justify-center">Let's create your account and start to use our amazing feature and improve your project management quality</h2>
+  </div>
+
+  <!-- Card Container -->
+  <div class="flex flex-col w-2/3 relative">
+      <!-- Isi Card Container -->
+      <div class="flex flex-col bg-[#FFF1E4] items-center justify-center md:h-screen">
+          <!-- Form Input -->
+          <div class="flex flex-col w-full pt-6 items-center space-y-4 md:space-y-2 ">
+              <form action="/signup" method="post" class="pb-2 px-32 space-y-2 md:space-y-2 w-full" action="">
+                <%- include("./component/messages") %>
+                  <!-- div form -->
+                  <div class="">
+                      <div class="flex flex-row w-full">
+                          <!-- div first name -->
+                          <div class="flex flex-col w-1/2 pr-4">
+                              <label for="fName" class="block text-gray-700 text-sm font-semibold mb-2">First Name</label>
+                              <input type="text" name="fName" id="fName"
+                                  class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="">
+                          </div>
+                          <!-- div last name -->
+                          <div class="flex flex-col w-1/2 pl-4">
+                              <label for="lName" class="block text-gray-700 text-sm font-semibold mb-2">Last Name</label>
+                              <input type="text" name="lName" id="lName"
+                                  class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="">
+                          </div>
+                      </div>
+                      <!-- div username -->
+                      <div class="flex w-full flex-col">
+                          <label for="username" class="block text-gray-700 text-sm font-semibold mb-2">Username</label>
+                          <input type="text" name="username" id="username"
+                              class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="">
+                      </div>
+                      <!-- div email -->
+                      <div class="flex w-full flex-col">
+                          <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
+                          <input type="email" name="email" id="email" class="bbg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="">
+                      </div>
+                      <!-- div pass -->
+                      <div class="flex w-full flex-col">
+                          <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                          <input type="password" name="password" id="password"
+                              class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="">
+                      </div>
+                      <!-- div confirm pass -->
+                      <div class="flex w-full flex-col">
+                          <label for="password2" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
+                          <input type="password" name="password2" id="password2"
+                              class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4" placeholder="">
+                      </div>   
+                      <div class="flex items-center mx-4">
+                          <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" checked="">
+                          <label class="checkbox-1" class="text-sm ml-3 font-medium text-gray-900">By ticking, you are confirmed, understood and agree <a href="#" class="text-blue-600 hover:underline">terms and conditions</a></label>
+                      </div>    
+                      <a href="" >
+                          <button id="tombol" type="submit" class="bg-[#4B6D5F] md:h-10 text-center items-center md:px-4 md:py-1 md:text-lg sm:text-xs sm:h-6 text-white rounded-xl leading-tight font-sans mt-4 mb-2 w-full">Sign Up</button>
+                      </a>               
+                  </div>
+              </form>
+          </div> 
+          <h1 class="text-sm mt-10 font-medium text-gray-900">Already have an account? <a href="/signin" class="text-blue-600 hover:underline">Sign In</a></h1>    
+      </div>
+  </div>
+</section>
