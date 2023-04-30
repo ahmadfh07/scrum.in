@@ -75,7 +75,6 @@ router.post(
         cssName: "signup",
         destination: !req.query.dest ? null : req.query.dest,
       });
-      console.log(errors.password.msg);
     } else {
       const newUser = new User({
         fName,
