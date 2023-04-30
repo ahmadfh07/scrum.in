@@ -9,7 +9,7 @@ module.exports = function (passport) {
       User.findOne({ username: username })
         .then((user) => {
           if (!user) {
-            return done(null, false, { message: "username tidak terdaftar" });
+            return done(null, false, { message: { usernameMsg: "Username tidak terdaftar" } });
           }
           //match pass
           bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -18,7 +18,7 @@ module.exports = function (passport) {
             if (isMatch) {
               return done(null, user);
             } else {
-              return done(null, false, { message: "Password tidak sesuai" });
+              return done(null, false, { message: { pwMsg: "Password tidak sesuai" } });
             }
           });
         })
