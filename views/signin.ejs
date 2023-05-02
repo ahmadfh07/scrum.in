@@ -17,8 +17,30 @@
         </h1>
         <h2 class="text-lg text-slate-950 md:text-lg sm:text-xs">Sign In To Your Account</h2>
         <form class="space-y-2 md:space-y-4 w-full" action="/signin<%- !destination ? `` : `?dest=${destination}` %>" method="post">
-          <%- include("./component/messages") %>
-          <%- typeof alertMsg != "string" ? '' : `<p class="text-red-500 text-xs italic">${alertMsg}</p>` %>
+
+          <% if(success_msg!='' ) { %>
+            <div class="bg-green-100 border border-green-400 text-green-700 w-full px-4 py-3 rounded relative" role="alert">
+              <span class="block sm:inline"><%=success_msg %></span>
+              <span  class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+              <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)"><svg id="triggerElement" class="fill-current h-6 w-6 text-green-700" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></button>
+            </div>
+            <% } %>
+            
+            <% if(error_msg !='' ) { %>
+              <div class="bg-red-100 border border-red-400 text-red-700 w-full px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline"><%= error_msg %></span>
+                <span  class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)"><svg id="triggerElement" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></button>
+              </div>
+            <% } %>
+
+          <!-- Di bawah ini dijadikan alert -->
+          <%- typeof alertMsg != "string" ? '' : ` <div class="bg-red-100 border border-red-400 text-red-700 w-full px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">${alertMsg}</span>
+            <span  class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+            <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)"><svg id="triggerElement" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></button>
+          </div> ` %> 
+
           <!-- div form -->
           <div class="mt-14 pb-8">
             <!-- div username -->
@@ -27,15 +49,23 @@
               <input type="text" name="username" id="username" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4" placeholder="" value="<%= (typeof creds != 'undefined') ? creds.username : null %>">
               <%- typeof usernameMsg === "undefined" ? '' : `<p class="text-red-500 text-xs italic">${usernameMsg}</p>` %>
             </div>
+
             <!-- div password -->
-            <div class="flex w-full flex-col">
+            <div class="flex w-full flex-col" ">
               <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
-              <input type="password" name="password" id="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto" placeholder="" value="<%= (typeof creds != 'undefined') ? creds.password : null %>">
+              <div class="relative w-full">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                  <input class="hidden js-password-toggle" id="toggle" type="checkbox" />
+                  <label class="bg-white hover:bg-slate-300 rounded-2xl px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer " for="toggle"><i id="js-password-label" class="fa-regular fa-eye"></i></label>
+                </div>
+                <input type="password" name="password" id="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto js-password" placeholder="" value="<%= (typeof creds != 'undefined') ? creds.password : null %>">
+              </div>
+              
               <%-  typeof pwMsg === "undefined" ? '' : `<p class="text-red-500 text-xs italic">${pwMsg}</p>` %>
             </div>
           </div>
           <a href="">
-            <button id="tombol" type="submit" class="bg-[#4B6D5F] hover:bg-[#60947e] md:h-10 text-center items-center md:px-8 md:py-1 md:text-lg sm:text-xs sm:h-6 text-white rounded-xl leading-tight font-sans mt-2 mb-2 w-full">Login</button>
+            <button id="tombol" type="submit" class="bg-[#4B6D5F] hover:bg-[#60947e] md:h-10 text-center items-center md:px-8 md:py-1 md:text-lg sm:text-xs sm:h-6 text-white rounded-xl leading-tight mt-2 mb-2 w-full">Login</button>
           </a>
         </form>
       </div>
@@ -43,3 +73,33 @@
     </div>
   </div>
 </section>
+
+<script>
+  function closeAlert(event){
+    let element = event.target;
+    while(element.nodeName !== "BUTTON"){
+      element = element.parentNode;
+    }
+    element.parentNode.parentNode.removeChild(element.parentNode);
+  }
+
+  const passwordToggle = document.querySelector('.js-password-toggle')
+  passwordToggle.addEventListener('change', function() {
+    const password = document.querySelector('.js-password'),
+      passwordLabel = document.querySelector('.js-password-label')
+
+    if (password.type === 'password') {
+      password.type = 'text'
+      passwordLabel.className = 'fa fa-eye-slash'
+      // passwordLabel.innerHTML = 'hide'
+    } else {
+      password.type = 'password'
+      passwordLabel.className = 'fa-reguler fa-eye'
+      // passwordLabel.innerHTML = 'show'
+    }
+
+    password.focus()
+  })
+
+
+</script>

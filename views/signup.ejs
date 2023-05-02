@@ -14,7 +14,20 @@
       <!-- Form Input -->
       <div class="flex flex-col w-full pt-6 items-center space-y-4 md:space-y-2 ">
         <form action="/signup" method="post" class="pb-2 px-32 space-y-2 md:space-y-2 w-full" action="">
-          <%- include("./component/messages") %>
+
+            <% if(success_msg!='' ) { %>
+                <div class="alert alert-success">
+                  <%=success_msg %>
+                </div>
+                <% } %>
+                
+                <% if(error_msg !='' ) { %>
+                <div class="alert alert-warning">
+                  <%= error_msg %>
+                </div>
+                <% } %>
+
+          <!-- Di bawah ini dijadikan alert -->
           <%-  !errAlert ? '' : `<p class="text-red-500 text-xs italic">${errAlert}</p>` %>
           <!-- div form -->
           <div class="">
@@ -42,18 +55,32 @@
               <input type="email" name="email" id="email" class="bbg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="" value="<%= (typeof email != 'undefined') ? email : null %>">
               <%-  !errEmail? '' : `<p class="text-red-500 text-xs italic">${errEmail}</p>` %>
             </div>
+
             <!-- div pass -->
             <div class="flex w-full flex-col">
               <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
-              <input type="password" name="password" id="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2" placeholder="" value="<%= (typeof password != 'undefined') ? password : null %>">
+              <div class="relative w-full">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                    <input class="hidden js-password-toggle" id="toggle" type="checkbox" />
+                    <label class="bg-white hover:bg-slate-300 rounded-2xl px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer" for="toggle"><i id="js-password-label" class="fa-regular fa-eye"></i></label>
+                </div>
+                <input type="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2 js-password" placeholder="" value="<%= (typeof password != 'undefined') ? password : null %>">
+              </div>
               <%-  !errPwRequirement ? '' : `<p class="text-red-500 text-xs italic">${errPwRequirement}</p>` %>
             </div>
+
             <!-- div confirm pass -->
             <div class="flex w-full flex-col">
-              <label for="password2" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
-              <input type="password" name="password2" id="password2" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4" placeholder="" value="<%= (typeof password2 != 'undefined') ? password2 : null %>">
+              <label for="confpass" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
+              <div class="relative w-full">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2">
+                  <input class="hidden js-confpass-toggle" id="toggle2" type="checkbox" />
+                  <label class="bg-white hover:bg-slate-300 rounded-2xl px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer " for="toggle2"><i id="js-confpass-label" class="fa-regular fa-eye"></i></label>
+                </div>
+              <input type="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4 js-confpass" placeholder="" value="<%= (typeof password2 != 'undefined') ? password2 : null %>">
               <%-  !errPwConfirm ? '' : `<p class="text-red-500 text-xs italic">${errPwConfirm}</p>` %>
             </div>
+
             <div class="flex items-center mx-4">
               <input id="agreement" onclick="agree()" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
               <label class="text-sm ml-3 font-medium text-gray-900">By ticking, you are confirmed, understood and agree <a href="#" class="text-blue-600 hover:underline">terms and conditions</a></label>
@@ -64,7 +91,7 @@
           </div>
         </form>
       </div>
-      <h1 class="text-sm mt-10 font-medium text-gray-900">Already have an account? <a href="/signin" class="text-blue-600 hover:underline">Sign In</a></h1>
+      <h1 class="text-sm mt-8 font-medium text-gray-900">Already have an account? <a href="/signin" class="text-blue-600 hover:underline">Sign In</a></h1>
     </div>
   </div>
 </section>
@@ -79,4 +106,36 @@
       document.getElementById("submit").disabled = true;
     }
   }
+
+//   Password
+  const passwordToggle = document.querySelector('.js-password-toggle')
+  passwordToggle.addEventListener('change', function() {
+    const password = document.querySelector('.js-password'),
+      passwordLabel = document.querySelector('.js-password-label')
+
+    if (password.type === 'password') {
+      password.type = 'text'
+      passwordLabel.className = 'fa fa-eye-slash'
+    } else {
+      password.type = 'password'
+      passwordLabel.className = 'fa-reguler fa-eye'
+    }
+    password.focus()
+  })
+
+//   Confirm Password
+  const confPasswordToggle = document.querySelector('.js-confpass-toggle')
+  confPasswordToggle.addEventListener('change', function() {
+    const confPass = document.querySelector('.js-confpass'),
+      confPassLabel = document.querySelector('.js-confpass-label')
+
+    if (confPass.type === 'password') {
+        confPass.type = 'text'
+        confPassLabel.className = 'fa fa-eye-slash'
+    } else {
+        confPass.type = 'password'
+        confPassLabel.className = 'fa-reguler fa-eye'
+    }
+    confPass.focus()
+  })
 </script>
