@@ -53,7 +53,7 @@ router.post(
     if (!fName || !lName || !username || !email || !password || !password2) {
       errAlert = "Please fill in all fields";
     }
-    if (errors.length !== 0) {
+    if (Object.keys(errors).length !== 0) {
       const errPwRequirement = errors.password?.msg;
       const errPwConfirm = errors.password2?.msg;
       const errUsername = errors.username?.msg;
