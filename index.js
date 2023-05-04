@@ -53,6 +53,7 @@ app.use((req, res, next) => {
 app.use("/signup", require("./controller/signup"));
 app.use("/signin", require("./controller/signin"));
 app.use("/dashboard", require("./controller/dashboard"));
+app.use("/project", require("./controller/project"));
 
 app.get("/", (req, res) => {
   res.redirect("/signin");

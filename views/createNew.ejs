@@ -1,5 +1,20 @@
-<form action="/create-new">
+<form action="/project/create-new" method="post">
   <label for="projectName">Nama Projek
     <input type="text" name="projectName" id="projectName">
   </label>
+  <button id="btnAddRoles">Add Roles</button>
+  <label for="roles">Roles yang dibutuhkan
+    <input type="text" name="rolesNeeded" id="rolesNeeded">
+    <input type="number" name="qtyRole" id="qtyRole">
+    <input type="text" name="rolesNeeded" id="rolesNeeded">
+    <input type="number" name="qtyRole" id="qtyRole">
+  </label>
+  <button type="submit">Create New</button>
 </form>
+
+<script>
+  // const btnAddRoles = document.querySelector(".btnAddRoles")
+  // btnAddRoles.addEventListener("click", () => {
+
+  // })
+</script>

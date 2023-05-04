@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
     errUsername: undefined,
     errEmail: undefined,
     title: "Sign Up",
-    layout: "layout/main-layout",
+    layout: "layout/signin-signout",
     cssName: "signup",
     destination: !req.query.dest ? null : req.query.dest,
   });
@@ -71,7 +71,7 @@ router.post(
         password,
         password2,
         title: "Sign Up",
-        layout: "layout/main-layout",
+        layout: "layout/signin-signout",
         cssName: "signup",
         destination: !req.query.dest ? null : req.query.dest,
       });

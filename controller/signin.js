@@ -5,7 +5,7 @@ const passport = require("passport");
 router.get("/", (req, res) => {
   res.render("signin", {
     title: "Sign In",
-    layout: "layout/main-layout",
+    layout: "layout/signin-signout",
     destination: !req.query.dest ? null : req.query.dest,
   });
 });
@@ -25,7 +25,7 @@ router.post("/", (req, res, next) => {
           pwMsg: info.message?.pwMsg,
           creds,
           title: "Sign In",
-          layout: "layout/main-layout",
+          layout: "layout/signin-signout",
           destination: !req.query.dest ? null : req.query.dest,
         });
       }
