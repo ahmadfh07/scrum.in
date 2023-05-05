@@ -64,7 +64,7 @@
                     <input class="hidden js-password-toggle" id="toggle" type="checkbox" />
                     <label class="bg-white hover:bg-slate-300 rounded-2xl px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer" for="toggle"><i id="js-password-label" class="fa-regular fa-eye"></i></label>
                 </div>
-                <input type="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2 js-password" placeholder="" value="<%= (typeof password != 'undefined') ? password : null %>">
+                <input type="password" name="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-2 js-password" placeholder="" value="<%= (typeof password != 'undefined') ? password : null %>">
               </div>
               <%-  !errPwRequirement ? '' : `<p class="text-red-500 text-xs italic">${errPwRequirement}</p>` %>
             </div>
@@ -77,7 +77,7 @@
                   <input class="hidden js-confpass-toggle" id="toggle2" type="checkbox" />
                   <label class="bg-white hover:bg-slate-300 rounded-2xl px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer " for="toggle2"><i id="js-confpass-label" class="fa-regular fa-eye"></i></label>
                 </div>
-              <input type="password" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4 js-confpass" placeholder="" value="<%= (typeof password2 != 'undefined') ? password2 : null %>">
+              <input type="password" name="password2" class="bg-white border border-white active: border-b-2  text-slate-950 sm:text-sm rounded-lg w-full p-2.5 flex-shrink flex-grow flex-auto mb-4 js-confpass" placeholder="" value="<%= (typeof password2 != 'undefined') ? password2 : null %>">
               <%-  !errPwConfirm ? '' : `<p class="text-red-500 text-xs italic">${errPwConfirm}</p>` %>
             </div>
 
