@@ -11,14 +11,58 @@
   </title>
 </head>
 
-<body class="font-['Open_Sans']">
+<body class="font-['Open_Sans'] flex flex-row">
+  <!-- sidebar -->
+  <aside class="flex flex-col bg-[#4B6D5F] w-[188px] h-screen">
+    <!-- Logo ScrumIn -->
+    <div class="h-16 pt-5 justify-center mx-auto">
+        <img class="flex items-center justify-center w-[91px]" src="assets/scrumin_sidebar.png" alt="">
+    </div>
+    <ul class="flex flex-col pl-5 pt-5 items-center space-y-3">
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Overview</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Project</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Schedule</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Forum</a></li>
+    </ul>
+    <!-- button Bawah -->
+    <div class="flex flex-col items-center mt-[230px]">
+        <hr class="h-px bg-white w-full">
+        <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Invite Team Member</a></div>
+        <hr class="h-px bg-white w-full">
+        <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Help</a></div>
+    </div>
+  </aside>
+
+  <div class="flex flex-col bg-[#DEE5D4] w-full h-screen">
+    <!-- Bagian yang mirip Navbar -->
+    <div class="flex flex-row w-full h-14 pt-3">
+      <!-- Kiri -->
+      <div class="flex flex-row w-4/5">
+          <h1 class="pl-5 pt-2 text-lg font-medium">Dashboard</h1>
+          <h1 class="pl-2 pt-2 text-lg font-medium">/</h1>
+          <h1 class="pl-2 pt-2 text-lg font-light">Overview</h1>
+      </div>
+      <!-- Kanan / Profil-->
+      <div class="flex flex-row w-1/5">
+          <!-- Avatar -->
+          <img class="flex h-9 w-9 my-auto mr-1" src="assets/user_avatar.png" alt="">
+          <!-- Nama -->
+          <div class="flex flex-col my-auto ml-1">
+              <h1 class="flex text-sm font-semibold">Paijo Notonegoro</h1>
+              <h1 class="flex text-xs">paijoNtng@gmail.com</h1>
+          </div>
+      </div>
+    </div>
+    <%- body %>
+  </div>
+
 </body>
-<div class="flex w-auto h-auto bg-gray-400 justify-between items-center p-3">
+<!-- <div class="flex w-auto h-auto bg-gray-400 justify-between items-center p-3">
   <h1 class="font-extrabold cursor-pointer">SCRUM.IN</h1>
   <a href="/signout" class="bg-slate-500 p-1 text-slate-100">Sign Out</a>
 </div>
 <div id="main" class="w-full h-screen flex items-center justify-center flex-col">
   <%- body %>
-</div>
+</div> -->
 
 </html>
