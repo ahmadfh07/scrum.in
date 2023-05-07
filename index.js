@@ -73,7 +73,7 @@ app.use((req, res) => {
   res.status(404);
   res.render("404", {
     title: "404",
-    layout: "layout/main-layout",
+    layout: "layout/signin-signout",
   });
 });
 

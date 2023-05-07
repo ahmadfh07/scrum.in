@@ -11,7 +11,7 @@ module.exports = {
       res.status(401);
       res.render("unauthorized", {
         title: "401",
-        layout: "layout/main-layout",
+        layout: "layout/signin-signout",
       });
     } else {
       return next();
