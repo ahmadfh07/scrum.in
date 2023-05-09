@@ -57,15 +57,11 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
   let userRole;
   const project = await Project.findOne({ projectId: req.params.id });
   if (project) {
-    const projectRoles = await Role.find({ projectId: req.params.id });
     if (req.user.username === project.productOwner) {
       userRole = "product owner";
     } else {
-      const role = projectRoles.filter((v) => v.holders.every((c) => c.username == req.user.username));
-      if (role) {
-        userRole = role[0].roleName;
-      }
-      userRole = "intruder";
+      const targetRole = await Role.find({ projectId: req.params.id }).elemMatch("holders", { username: req.user.username });
+      userRole = targetRole.length == 0 ? "intruder" : targetRole[0]?.roleName;
     }
     res.render("project", {
       userRole,
