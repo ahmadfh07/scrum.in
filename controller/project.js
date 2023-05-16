@@ -14,6 +14,14 @@ router.get("/create-new", ensureAuthenticated, (req, res) => {
   });
 });
 
+router.get("/dashboard", ensureAuthenticated, (req, res) => {
+  res.render("project-dashboard", {
+    user: req.user,
+    title: "Project dashboard",
+    layout: "layout/main-layout",
+  });
+});
+
 router.post(
   "/create-new",
   [
