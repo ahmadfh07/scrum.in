@@ -16,20 +16,20 @@
   <aside class="flex flex-col bg-[#4B6D5F] w-[188px] h-screen">
     <!-- Logo ScrumIn -->
     <div class="h-16 pt-5 justify-center mx-auto">
-      <img class="flex items-center justify-center w-[91px]" src="/assets/scrumin_sidebar.png" alt="">
+        <img class="flex items-center justify-center w-[91px]" src="assets/scrumin_sidebar.png" alt="">
     </div>
     <ul class="flex flex-col pl-5 pt-5 items-center space-y-3">
-      <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="/dashboard">Overview</a></li>
-      <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Project</a></li>
-      <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Schedule</a></li>
-      <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Forum</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Overview</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Project</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Schedule</a></li>
+        <li class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs ml-10 my-auto" href="">Forum</a></li>
     </ul>
     <!-- button Bawah -->
     <div class="flex flex-col items-center mt-[230px]">
-      <hr class="h-px bg-white w-full">
-      <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Invite Team Member</a></div>
-      <hr class="h-px bg-white w-full">
-      <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Help</a></div>
+        <hr class="h-px bg-white w-full">
+        <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Invite Team Member</a></div>
+        <hr class="h-px bg-white w-full">
+        <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black"><a class="text-xs m-auto" href="">Help</a></div>
     </div>
   </aside>
 
@@ -38,30 +38,30 @@
     <div class="flex flex-row w-full h-14 pt-3">
       <!-- Kiri -->
       <div class="flex flex-row w-4/5">
-        <h1 class="pl-5 pt-2 text-lg font-medium">Dashboard</h1>
-        <h1 class="pl-2 pt-2 text-lg font-medium">/</h1>
-        <h1 class="pl-2 pt-2 text-lg font-light">Overview</h1>
+          <h1 class="pl-5 pt-2 text-lg font-medium">Dashboard</h1>
+          <h1 class="pl-2 pt-2 text-lg font-medium">/</h1>
+          <h1 class="pl-2 pt-2 text-lg font-light">Overview</h1>
       </div>
-      <!-- Kanan / Profil-->
+      <!-- Kanan / Profil--> 
       <div class="dropdown inline-block relative mb-2">
-        <button class="flex w-full">
-          <span class="flex mr-1">
-            <div class="flex flex-row w-1/5 mb-2">
-              <!-- Avatar -->
-              <img class="flex h-9 w-9 my-auto mr-1" src="/assets/user_avatar.png" alt="">
-              <!-- Nama -->
-              <div class="flex flex-col my-auto ml-1">
-                <h1 class="flex text-sm font-semibold"><%- user.fName %> <%- user.lName %></h1>
-                <h1 class="flex text-xs"><%- user.email %></h1>
-              </div>
-            </div>
-          </span>
-        </button>
-        <ul class="dropdown-menu absolute hidden text-black items-center">
-          <li class="justify-center"><a class="w-[199px] rounded-b-md hover:bg-green-200 py-2 px-4 block text-sm font-semibold justify-center" href="/signout">Sign Out</a></li>
-        </ul>
+          <button class="flex w-full">
+              <span class="flex mr-1">
+                  <div class="flex flex-row w-1/5 mb-2">
+                      <!-- Avatar -->
+                      <img class="flex h-9 w-9 my-auto mr-1" src="/assets/user_avatar.png" alt="">
+                      <!-- Nama -->
+                      <div class="flex flex-col my-auto ml-1">
+                          <h1 class="flex text-sm font-semibold">Paijo Notonegoro</h1>
+                          <h1 class="flex text-xs">paijoNtng@gmail.com</h1>
+                      </div>
+                  </div> 
+              </span>
+          </button>
+          <ul class="dropdown-menu absolute hidden text-black items-center">
+              <li class="justify-center"><a class="w-[199px] rounded-b-md hover:bg-green-200 py-2 px-4 block text-sm font-semibold justify-center" href="/signout">Sign Out</a></li>
+          </ul>
       </div>
-    </div>
+  </div>
     <%- body %>
   </div>
 
@@ -78,6 +78,6 @@
 
 <style>
   .dropdown:hover .dropdown-menu {
-    display: block;
+      display: block;
   }
 </style>
