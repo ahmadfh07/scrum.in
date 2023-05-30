@@ -1,3 +1,32 @@
+<!-- Bagian yang mirip Navbar -->
+<div class="flex flex-row w-full h-14 pt-3">
+  <!-- Kiri -->
+  <div class="flex flex-row w-4/5">
+    <h1 class="pl-5 pt-2 text-lg font-medium">Dashboard</h1>
+    <h1 class="pl-2 pt-2 text-lg font-medium">/</h1>
+    <h1 class="pl-2 pt-2 text-lg font-light">Overview</h1>
+  </div>
+  <!-- Kanan / Profil-->
+  <div class="dropdown inline-block relative mb-2">
+    <button class="flex w-full">
+      <span class="flex mr-1">
+        <div class="flex flex-row w-1/5 mb-2">
+          <!-- Avatar -->
+          <img class="flex w-16 my-auto mr-1" src="/assets/user_avatar.png" alt="">
+          <!-- Nama -->
+          <div class="flex flex-col my-auto ml-1">
+            <h1 class="flex text-sm font-semibold"><%- user.fName %> <%- user.lName %></h1>
+            <h1 class="flex text-xs"><%- user.email %></h1>
+          </div>
+        </div>
+      </span>
+    </button>
+    <ul class="dropdown-menu absolute hidden text-black items-center">
+      <li class="justify-center"><a class="w-44 rounded-b-xl hover:bg-green-200 py-2 px-4 block text-sm font-semibold justify-center" href="/signout">Sign Out</a></li>
+    </ul>
+  </div>
+</div>
+
 <h3 class="text-2xl">You dont have any project</h3>
 <div id="dialog" class="flex items-center justify-between p-5 w-1/4">
   <a href="/project/join-existing" class="p-1 rounded-sm bg-blue-500 text-slate-200">Join Existing Project</a>
