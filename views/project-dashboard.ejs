@@ -38,24 +38,181 @@
   <!-- Create or Join Project -->
   <div class="flex flex-row items-center text-center mt-20">
     <!-- Create Project -->
-    <a href="/project/create-new">
-      <div class="modal-open flex flex-col w-60 h-60 border-dashed border-4 border-[#9B9B9B] items-center my-auto">
-        <div class="flex flex-col items-center my-auto">
-          <img class="flex w-14 h-14 mb-4" src="/assets/logo_plus.png" alt="">
-          <h1 class="flex justify-center mt-6 text-base text-[#9B9B9B]">Create New Project</h1>
-        </div>
+    <div class="modal-open flex flex-col w-60 h-60 border-dashed border-4 border-[#9B9B9B] items-center my-auto">
+      <div class="flex flex-col items-center my-auto">
+        <img class="flex w-14 h-14 mb-4" src="/assets/logo_plus.png" alt="">
+        <h1 class="flex justify-center mt-6 text-base text-[#9B9B9B]">Create New Project</h1>
       </div>
-    </a>
+    </div>
+    <div class="modal my-20 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
+      <div class="modal-content flex flex-col bg-white rounded-xl shadow-lg p-8 m-auto">
+        <h1 class="font-semibold text-xl mb-3">Create New Project</h1>
+        <form class="flex flex-col items-center w-10/12 mx-auto mb-8">
+          <div class="w-full text-left">
+            <label for="name">Project Name</label>
+            <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="name" name="name"
+            />
+          </div>
+          <div class="w-full text-left mt-2">
+            <label for="ket">Description</label><br />
+            <textarea class="w-full border-2 px-2 py-1.5 rounded-md mt-2 h-28" type="text" id="ket"name="ket"></textarea
+            >
+          </div>
+          <div class="flex gap-x-2 w-full text-left mt-2">
+            <div class="w-10/12" id="role-container">
+              <label for="tiga">Role Name</label>
+              <div class="" id="roles"></div>
+            </div>
+          </div>
+          <div class="flex gap-x-3 self-start mt-8">
+            <div class="modal-close bg-white rounded-full py-2 px-4 text-sm">
+              <a href="#">Back</a>
+            </div>
+            <div class="bg-black text-white rounded-full py-2 px-4 text-sm">
+              <a href="#">Save </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> 
+
     <h1 class="flex mx-10">or</h1>
 
     <!-- Join Project -->
-    <a href="/project/join-existing">
-      <div class="flex flex-col w-60 h-60 border-dashed border-4 border-[#9B9B9B] items-center my-auto">
-        <div class="flex flex-col items-center my-auto">
-          <img class="flex w-20 h-20 mb-4" src="/assets/logo_add.png" alt="">
-          <h1 class="flex justify-center mt-6 text-base text-[#9B9B9B]">Join Project</h1>
-        </div>
+    <div class="modal-open2 flex flex-col w-60 h-60 border-dashed border-4 border-[#9B9B9B] items-center my-auto">
+      <div class="flex flex-col items-center my-auto">
+        <img class="flex w-20 h-20 mb-4" src="/assets/logo_add.png" alt="">
+        <h1 class="flex justify-center mt-6 text-base text-[#9B9B9B]">Join Project</h1>
       </div>
-    </a>
+    </div>
+    <div class="modal2 my-40 fixed inset-0 opacity-0 pointer-events-none transition duration-300 w-1/3 m-auto">
+      <div class="modal-content2 flex-col bg-white rounded-xl shadow-lg p-8 m-auto">
+          <h1 class="font-semibold text-xl mx-auto mb-3">Join Project</h1>
+          <label class="flex" for="codeproject">Code Project</label>
+          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" name="codeproject" id="codeproject">
+          
+          <div class="flex gap-x-2 w-full text-left mt-2">
+            <div class="w-10/12" id="role-container2">
+              <label for="empat">Role Name</label>
+              <div class="" id="roles2"></div>
+            </div>
+          </div>
+          
+          <div class="flex flex-row mt-4">
+            <div class="modal-close2 bg-white rounded-full py-2 px-4 text-sm">
+              <a href="#">Back</a>
+            </div>
+            <div class="bg-black text-white rounded-full py-2 px-4 text-sm">
+              <a href="#">Save </a>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
+
+
+
+<script>
+  // JS untuk buka tutup pop-up
+  const modal = document.querySelector('.modal');
+  const modalOpen = document.querySelector('.modal-open');
+  const modalClose = document.querySelector('.modal-close');
+
+  modalOpen.addEventListener('click', function() {
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+  modal.classList.add('opacity-100');
+  });
+
+  modalClose.addEventListener('click', function() {
+  modal.classList.remove('opacity-100');
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  });
+
+  // JS untuk buka tutup pop-up
+  const modal2 = document.querySelector('.modal2');
+  const modalOpen2 = document.querySelector('.modal-open2');
+  const modalClose2 = document.querySelector('.modal-close2');
+
+  modalOpen2.addEventListener('click', function() {
+  modal2.classList.remove('opacity-0', 'pointer-events-none');
+  modal2.classList.add('opacity-100');
+  });
+
+  modalClose2.addEventListener('click', function() {
+  modal2.classList.remove('opacity-100');
+  modal2.classList.add('opacity-0', 'pointer-events-none');
+  });
+
+  //JS untuk add role
+  const roleInput = document.querySelector("#role-input");
+  const roleWrapperInput = document.querySelector("#role-wrapper-input");
+  const roleContainer = document.querySelector("#role-container");
+  const rolesEl = document.querySelector("#roles");
+
+  const roles = [1];
+  loadData();
+  function loadData() {
+    let rolesHTML = "";
+    roles.forEach((r, i) => {
+      rolesHTML += `<div class="flex items-center gap-y-3">
+                                <input class="w-1/2 border-2 px-2 py-1.5 rounded-md mr-3" type="text" id="role-input"
+                                    name="bebas"><br /><br />
+                                ${
+                                  i === roles.length - 1
+                                    ? `<div class="p-2 bg-white rounded-md cursor-pointer" onclick="addRoleInput(${i})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-700" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 5l0 14"></path>
+                                        <path d="M5 12l14 0"></path>
+                                    </svg>
+                                </div>`
+                                    : ""
+                                }
+                            </div>`;
+    });
+    rolesEl.innerHTML = rolesHTML;
+  }
+  function addRoleInput(i) {
+    roles.push(i + 1);
+    console.log(i, roles);
+    loadData();
+  }
+
+
+  //JS untuk add role2
+  const roleInput2 = document.querySelector("#role-input2");
+  const roleWrapperInput2 = document.querySelector("#role-wrapper-input2");
+  const roleContainer2 = document.querySelector("#role-container2");
+  const rolesEl2 = document.querySelector("#roles2");
+
+  const roles2 = [1];
+  loadData2();
+  function loadData2() {
+    let rolesHTML2 = "";
+    roles2.forEach((r, i) => {
+      rolesHTML2 += `<div class="flex items-center gap-y-3">
+                                <input class="w-1/2 border-2 px-2 py-1.5 rounded-md mr-3" type="text" id="role-input2" name="bebas"><br /><br />
+                                ${
+                                  i === roles2.length - 1
+                                    ? `<div class="p-2 bg-white rounded-md cursor-pointer" onclick="addRoleInput2(${i})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-700" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 5l0 14"></path>
+                                        <path d="M5 12l14 0"></path>
+                                    </svg>
+                                </div>`
+                                    : ""
+                                }
+                            </div>`;
+    });
+    rolesEl2.innerHTML = rolesHTML2;
+  }
+  function addRoleInput2(i) {
+    roles2.push(i + 1);
+    console.log(i, roles2);
+    loadData2();
+  }
+</script>
