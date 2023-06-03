@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash("error_msg", "Please Sign In to see tis resources");
+    req.flash("error_msg", "Please Sign In to see this resources");
     res.redirect(`/signin?dest=${req._parsedOriginalUrl.href}`);
   },
   isAdmin: function (req, res, next) {
