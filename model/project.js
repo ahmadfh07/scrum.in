@@ -8,6 +8,10 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  projectDesc: {
+    type: String,
+    required: true,
+  },
   productOwner: {
     type: String,
     required: true,

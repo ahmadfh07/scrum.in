@@ -56,7 +56,7 @@ app.use("/dashboard", require("./controller/dashboard"));
 app.use("/project", require("./controller/project"));
 
 app.get("/", (req, res) => {
-  res.redirect("/signin");
+  res.redirect("/dashboard");
 });
 
 app.get("/signout", (req, res) => {

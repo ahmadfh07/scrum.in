@@ -10,7 +10,6 @@ const RoleSchema = new mongoose.Schema({
   },
   qtyRole: {
     type: Number,
-    required: true,
   },
   holders: [
     {

@@ -6,18 +6,18 @@ const Role = require("../model/role");
 const { body, validationResult, check } = require("express-validator");
 const ShortUniqueId = require("short-unique-id");
 
-router.get("/create-new", ensureAuthenticated, (req, res) => {
-  res.render("createNew", {
-    user: req.user,
-    title: "New Project",
-    layout: "layout/main-layout",
-  });
-});
-
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
   res.render("project-dashboard", {
     user: req.user,
     title: "Project dashboard",
+    layout: "layout/main-layout",
+  });
+});
+
+router.get("/join-existing", ensureAuthenticated, (req, res) => {
+  res.render("project-join", {
+    user: req.user,
+    title: "Join project",
     layout: "layout/main-layout",
   });
 });
@@ -35,28 +35,23 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req).mapped();
     if (Object.keys(errors).length !== 0) {
-      res.render("createNew", {
-        user: req.user,
-        title: "New Project",
-        layout: "layout/main-layout",
-        errProjectName: errors?.projectname?.msg,
-      });
+      res.send(errors);
     } else {
       const uuid = new ShortUniqueId();
       let projectId = uuid();
       Project.insertMany({
         projectId,
         projectName: req.body.projectName,
-        productOwner: req.user.username,
+        projectDesc: req.body.projectDesc,
+        productOwner: req.body.productOwner,
       });
       req.body.rolesNeeded.forEach((value, index) => {
         Role.insertMany({
           projectId,
           roleName: value,
-          qtyRole: +req.body.qtyRole[index],
         });
       });
-      res.redirect("/dashboard");
+      res.redirect(`/project/${projectId}`);
     }
   }
 );
@@ -83,6 +78,25 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
       title: "404",
       layout: "layout/signin-signout",
     });
+  }
+});
+
+router.get("/:id/join", ensureAuthenticated, async (req, res) => {
+  const project = await Project.findOne({ projectId: req.params.id });
+  const dupeRole = await Role.find({ projectId: req.params.id }).elemMatch("holders", { username: req.user.username });
+  const wantedRole = await Role.find({ projectId: req.params.id }).and({ roleName: req.query.role });
+  const { username, email } = req.user;
+  try {
+    if (wantedRole.length == 0) {
+      throw new Error(`Role yang diinginkan tidak dapat ditemukan`);
+    }
+    if (dupeRole.length != 0) {
+      throw new Error(`Anda sudah terdaftar sebagai ${dupeRole[0].roleName}`);
+    }
+    const updatedRole = await Role.findOneAndUpdate({ projectId: req.params.id, roleName: req.query.role }, { $push: { holders: { username, email } } });
+    res.send(`success`);
+  } catch (err) {
+    res.send(err.message);
   }
 });
 
