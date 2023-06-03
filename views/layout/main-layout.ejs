@@ -7,11 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
   <title>Scrum.in | <%= title %>
   </title>
 </head>
 
-<body class="font-['Open_Sans'] flex flex-row">
+<body class="font-open-sans flex flex-row">
   <!-- sidebar -->
   <aside class="flex flex-col bg-[#4B6D5F] justify-between w-[188px] h-screen">
     <!-- Logo ScrumIn -->
@@ -52,7 +55,7 @@
           <div class="flex justify-end pt-4">
             <div class="modal-close3 w-10 justify-end">
               <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
               </svg>
             </div>
           </div>
@@ -65,9 +68,11 @@
               <div class="w-1/3 dropdown inline-block relative">
                 <button class="bg-white border-2 rounded-lg text-gray-700 font-semibold py-2 px-4 inline-flex items-center">
                   <span class="mr-1">Dropdown</span>
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
                 </button>
-  
+
                 <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
                   <li class=""><a class="rounded-t bg-white hover:bg-gray-100 py-2 px-4 block whitespace-no-wrap" href="#">Ini Role</a></li>
                   <li class=""><a class="bg-white hover:bg-gray-100 py-2 px-4 block whitespace-no-wrap" href="#">Ini Role</a></li>
@@ -99,19 +104,18 @@
   </aside>
 
   <div class="flex flex-col bg-[#DEE5D4] w-full h-screen">
-    
+
     <%- body %>
   </div>
 
 </body>
+
 </html>
 
 <style>
   .dropdown:hover .dropdown-menu {
     display: block;
   }
-
-  
 </style>
 
 <script>
@@ -121,13 +125,13 @@
   const modalClose3 = document.querySelector('.modal-close3');
 
   modalOpen3.addEventListener('click', function() {
-  modal3.classList.remove('opacity-0', 'pointer-events-none');
-  modal3.classList.add('opacity-100');
+    modal3.classList.remove('opacity-0', 'pointer-events-none');
+    modal3.classList.add('opacity-100');
   });
 
   modalClose3.addEventListener('click', function() {
-  modal3.classList.remove('opacity-100');
-  modal3.classList.add('opacity-0', 'pointer-events-none');
+    modal3.classList.remove('opacity-100');
+    modal3.classList.add('opacity-0', 'pointer-events-none');
   });
 
   //JS untuk add role2
@@ -138,6 +142,7 @@
 
   const roles3 = [1];
   loadData3();
+
   function loadData3() {
     let rolesHTML3 = "";
     roles3.forEach((r, i) => {
@@ -158,6 +163,7 @@
     });
     rolesEl3.innerHTML = rolesHTML3;
   }
+
   function addRoleInput3(i) {
     roles3.push(i + 1);
     console.log(i, roles3);
