@@ -13,7 +13,7 @@
 
 <body class="font-['Open_Sans'] flex flex-row">
   <!-- sidebar -->
-  <aside class="flex flex-col bg-[#4B6D5F] w-[188px] h-screen">
+  <aside class="flex flex-col bg-[#4B6D5F] justify-between w-[188px] h-screen">
     <!-- Logo ScrumIn -->
     <div class="h-16 pt-5 justify-center mx-auto">
       <img class="flex items-center justify-center w-[91px]" src="/assets/scrumin_sidebar.png" alt="">
@@ -46,27 +46,47 @@
       <div class="modal-open3 flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black">
         <h1 class="text-xs m-auto">Invite Team Member</h1>
       </div>
+      <!-- Modal -->
       <div class="modal3 my-20 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
-        <div class="modal-content3 flex-col bg-white rounded-xl shadow-lg p-8 m-auto">
-          <h1 class="font-semibold text-xl mx-auto mb-3 text-center">Project Invitation</h1>
-          <label class="flex text-sm" for="codeproject">Your Link Project</label>
-          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" name="linkproject" id="linkproject">
-          
-          <div class="flex gap-x-2 w-full text-left mt-2">
-            <div class="w-10/12" id="role-container2">
-              <label class="text-sm" for="lima">Role(Specify your role)</label>
-              <div class="" id="roles3"></div>
+        <div class="modal-content3 flex-col bg-white rounded-xl shadow-lg m-auto">
+          <div class="flex justify-end pt-4">
+            <div class="modal-close3 w-10 justify-end">
+              <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
             </div>
           </div>
-          <div class="flex flex-row mt-4">
-            <div class="modal-close3 bg-white rounded-full py-2 px-4 text-sm">
-              <a href="#">Back</a>
+          <h1 class="font-semibold text-xl mx-auto text-center">Project Invitation</h1>
+          <div class="flex flex-col w-full mb-3 p-8">
+            <div class="flex flex-col w-full mx-auto mb-2">
+              <h1 class="flex text-sm">Role</h1>
             </div>
-            <div class="bg-black text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">
-              <a href="#">Share</a>
+            <div class="flex flex-row mb-2">
+              <div class="w-1/3 dropdown inline-block relative">
+                <button class="bg-white border-2 rounded-lg text-gray-700 font-semibold py-2 px-4 inline-flex items-center">
+                  <span class="mr-1">Dropdown</span>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                </button>
+  
+                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                  <li class=""><a class="rounded-t bg-white hover:bg-gray-100 py-2 px-4 block whitespace-no-wrap" href="#">Ini Role</a></li>
+                  <li class=""><a class="bg-white hover:bg-gray-100 py-2 px-4 block whitespace-no-wrap" href="#">Ini Role</a></li>
+                  <li class=""><a class="rounded-b bg-white hover:bg-gray-100 py-2 px-4 block whitespace-no-wrap" href="#">Ini Role</a></li>
+                </ul>
+              </div>
+              <div class="flex bg-[#4B6D5F] ml-7 text-white hover:bg-[#DEE5D4] hover:text-black rounded-lg px-4 text-sm">
+                <a class="m-auto" href="#">Generate</a>
+              </div>
+            </div>
+            <div class="flex flex-col w-full mx-auto mt-4 mb-2">
+              <h1 class="flex text-sm mb-2">Link</h1>
+              <input class="flex w-64 rounded-lg h-11 bg-slate-100" type="text">
+            </div>
+            <div class="flex flex-col w-full mx-auto mt-4 mb-2">
+              <h1 class="flex text-sm mb-2">Code</h1>
+              <input class="flex w-40 rounded-lg h-11 bg-slate-100" type="text">
             </div>
           </div>
-
         </div>
       </div>
 
@@ -90,6 +110,8 @@
   .dropdown:hover .dropdown-menu {
     display: block;
   }
+
+  
 </style>
 
 <script>
