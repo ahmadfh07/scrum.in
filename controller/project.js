@@ -35,10 +35,10 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req).mapped();
     if (Object.keys(errors).length !== 0) {
-      res.send(errors);
+      res.send({ status: `error`, errors });
     } else {
-      const uuid = new ShortUniqueId();
-      let projectId = uuid();
+      const uuidProject = new ShortUniqueId();
+      let projectId = uuidProject();
       Project.insertMany({
         projectId,
         projectName: req.body.projectName,
@@ -46,12 +46,15 @@ router.post(
         productOwner: req.body.productOwner,
       });
       req.body.rolesNeeded.forEach((value, index) => {
+        const uuidRole = new ShortUniqueId();
+        let roleId = uuidRole();
         Role.insertMany({
           projectId,
+          roleId,
           roleName: value,
         });
       });
-      res.redirect(`/project/${projectId}`);
+      res.send({ status: `success`, projectId });
     }
   }
 );
@@ -59,6 +62,7 @@ router.post(
 router.get("/:id", ensureAuthenticated, async (req, res) => {
   let userRole;
   const project = await Project.findOne({ projectId: req.params.id });
+  const roles = await Role.find({ projectId: req.params.id });
   if (project) {
     if (req.user.username === project.productOwner) {
       userRole = "product owner";
@@ -68,6 +72,8 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
     }
     res.render("project", {
       userRole,
+      project,
+      roles,
       user: req.user,
       title: project.projectName,
       layout: "layout/main-layout",

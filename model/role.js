@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const RoleSchema = new mongoose.Schema({
+  roleId: {
+    type: String,
+    required: true,
+  },
   projectId: {
     type: String,
     required: true,
