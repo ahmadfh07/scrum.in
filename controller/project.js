@@ -82,7 +82,7 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
       const targetRole = await Role.find({ projectId: req.params.id }).elemMatch("holders", { username: req.user.username });
       userRole = targetRole.length == 0 ? "intruder" : targetRole[0]?.roleName;
     }
-    res.render("project", {
+    res.render("project-overview", {
       userRole,
       project,
       roles,
