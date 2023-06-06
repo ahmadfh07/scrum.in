@@ -45,11 +45,11 @@
     </ul>
     <!-- button Bawah -->
     <div class="flex flex-col items-center mt-60">
-      <hr class="h-px bg-white w-full">
-      <% if (typeof project === 'undefined') { %>
+      <% if (typeof project == 'undefined') { %>
 
       <% } else { %>
 
+      <hr class="h-px bg-white w-full">
       <div class="modal-open3 flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black">
         <h1 class="text-xs m-auto">Invite Team Member</h1>
       </div>
@@ -70,31 +70,28 @@
             </div>
             <div class="flex flex-row mb-2">
               <div class="w-2/3 flex">
-                <select class="border-2 w-64 text-sm h-11 rounded-lg" name="iniRole" id="iniRole">
-                  <option class="rounded-lg" value="role1">ini Role</option>
-                  <option class="rounded-lg" value="role2">ini Role</option>
-                  <option class="rounded-lg" value="role3">ini Role</option>
-                  <option class="rounded-lg" value="role4">ini Role</option>
+                <select class="border-2 w-64 text-sm h-11 rounded-lg" name="selectRole" id="selectRole">
+                  <% roles.forEach(e => { %>
+                  <option class="rounded-lg" value="<%= `${e.projectId}/${e.roleId}` %>"><%= e.roleName %></option>
+                  <% }) %>
                 </select>
               </div>
               <div class="flex bg-[#4B6D5F] ml-7 text-white hover:bg-[#DEE5D4] hover:text-black rounded-lg px-4 text-sm">
-                <a class="m-auto" href="#">Generate</a>
+                <a id="btnGenerate" class="m-auto" href="#">Generate</a>
               </div>
             </div>
             <div class="flex flex-col w-full mx-auto mt-4 mb-2">
               <h1 class="flex text-sm mb-2">Link</h1>
-              <input class="flex w-64 rounded-lg h-11 bg-slate-100" type="text">
+              <input id="urlField" class="flex w-64 rounded-lg h-11 bg-slate-100" type="text">
             </div>
             <div class="flex flex-col w-full mx-auto mt-4 mb-2">
               <h1 class="flex text-sm mb-2">Code</h1>
-              <input class="flex w-40 rounded-lg h-11 bg-slate-100" type="text">
+              <input id="codeField" class="flex w-40 rounded-lg h-11 bg-slate-100" type="text">
             </div>
           </div>
         </div>
       </div>
-
       <% } %>
-
       <hr class="h-px bg-white w-full">
       <div class="flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black">
         <h1 class="text-xs m-auto">Help</h1>
@@ -133,39 +130,16 @@
     modal3.classList.add('opacity-0', 'pointer-events-none');
   });
 
-  //JS untuk add role2
-  const roleInput3 = document.querySelector("#role-input3");
-  const roleWrapperInput3 = document.querySelector("#role-wrapper-input3");
-  const roleContainer3 = document.querySelector("#role-container3");
-  const rolesEl3 = document.querySelector("#roles3");
 
-  const roles3 = [1];
-  loadData3();
-
-  function loadData3() {
-    let rolesHTML3 = "";
-    roles3.forEach((r, i) => {
-      rolesHTML3 += `<div class="flex items-center gap-y-3">
-                                <input class="w-1/2 border-2 px-2 py-1.5 rounded-md mr-3" type="text" id="role-input3" name="bebas"><br /><br />
-                                ${
-                                  i === roles3.length - 1
-                                    ? `<div class="p-2 bg-white rounded-md cursor-pointer" onclick="addRoleInput3(${i})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-700" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 5l0 14"></path>
-                                        <path d="M5 12l14 0"></path>
-                                    </svg>
-                                </div>`
-                                    : ""
-                                }
-                            </div>`;
-    });
-    rolesEl3.innerHTML = rolesHTML3;
-  }
-
-  function addRoleInput3(i) {
-    roles3.push(i + 1);
-    console.log(i, roles3);
-    loadData3();
-  }
+  // js for generate code
+  const btnGenerate = document.querySelector("#btnGenerate")
+  const selectRole = document.querySelector("#selectRole")
+  const codeField = document.querySelector("#codeField")
+  const urlField = document.querySelector("#urlField")
+  btnGenerate.addEventListener("click", (e) => {
+    const [projectId, roleId] = selectRole.value.split("/")
+    codeField.value = selectRole.value
+    urlField.value = `${window.location.origin}/project/${projectId}/join?role=${roleId}`
+  })
+  // end of js for generate code
 </script>
