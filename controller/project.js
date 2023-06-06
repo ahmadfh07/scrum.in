@@ -59,6 +59,18 @@ router.post(
   }
 );
 
+router.get("/get-target-role", async (req, res) => {
+  try {
+    const targetRoles = await Role.findOne({ projectId: req.query.projectId }).and({ roleId: req.query.roleId });
+    if (!targetRoles) {
+      throw new Error("undefined");
+    }
+    res.send({ status: "success", data: targetRoles });
+  } catch (err) {
+    res.send({ status: "error", data: err.message });
+  }
+});
+
 router.get("/:id", ensureAuthenticated, async (req, res) => {
   let userRole;
   const project = await Project.findOne({ projectId: req.params.id });
@@ -90,7 +102,8 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
 router.get("/:id/join", ensureAuthenticated, async (req, res) => {
   const project = await Project.findOne({ projectId: req.params.id });
   const dupeRole = await Role.find({ projectId: req.params.id }).elemMatch("holders", { username: req.user.username });
-  const wantedRole = await Role.find({ projectId: req.params.id }).and({ roleName: req.query.role });
+  const wantedRole = await Role.find({ projectId: req.params.id }).and({ roleId: req.query.role });
+  console.log(req.params.id);
   const { username, email } = req.user;
   try {
     if (wantedRole.length == 0) {
@@ -99,10 +112,14 @@ router.get("/:id/join", ensureAuthenticated, async (req, res) => {
     if (dupeRole.length != 0) {
       throw new Error(`Anda sudah terdaftar sebagai ${dupeRole[0].roleName}`);
     }
-    const updatedRole = await Role.findOneAndUpdate({ projectId: req.params.id, roleName: req.query.role }, { $push: { holders: { username, email } } });
-    res.send(`success`);
+    if (username === project.productOwner) {
+      throw new Error(`Anda sudah terdaftar sebagai product owner`);
+    }
+    const updatedRole = await Role.findOneAndUpdate({ projectId: req.params.id, roleId: req.query.role }, { $push: { holders: { username, email } } });
+    res.send({ status: "sucess", data: req.params.id });
   } catch (err) {
-    res.send(err.message);
+    console.log(project);
+    res.send({ status: "error", msg: err.message });
   }
 });
 

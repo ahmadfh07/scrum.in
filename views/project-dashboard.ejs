@@ -116,13 +116,13 @@
           </div>
 
           <div class="flex flex-col w-full mx-auto mb-8">
-            <label class="flex text-sm items-start" for="codeproject">Role according to Code</label>
-            <input class="w-60 bg-slate-100 border-2 px-2 py-1.5 rounded-md mt-2" type="text" name="codeproject" id="codeproject">
+            <label class="flex text-sm items-start" for="targetRole">Role according to Code</label>
+            <input class="w-60 bg-slate-100 border-2 px-2 py-1.5 rounded-md mt-2" type="text" name="targetRole" id="targetRole">
           </div>
 
           <div class="flex flex-row mb-4 justify-start">
             <div class="bg-black items-start text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">
-              <a class="px-2" href="#">Join</a>
+              <a id="btnJoin" class="px-2" href="#">Join</a>
             </div>
           </div>
         </div>
@@ -286,4 +286,50 @@
 
   })
   // end of js for create new project
+
+  // js for joining project
+  const codeProjectInput = document.querySelector("#codeproject")
+  const targetRole = document.querySelector("#targetRole")
+  const btnJoin = document.querySelector("#btnJoin")
+
+  codeProjectInput.addEventListener("input", (e) => {
+    if (codeProjectInput.value.length == 13) {
+      const [projectCode, roleCode] = codeProjectInput.value.split("/")
+      fetch(`${window.location.origin}/project/get-target-role?projectId=${projectCode}&roleId=${roleCode}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === `error`) {
+            targetRole.value = data.msg
+            return
+          }
+          targetRole.value = data.data.roleName
+          console.log(data.data.roleName)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // btnJoin.setAttribute("href", `/project/${projectCode}/join?role=${roleCode}`)
+    }
+  })
+
+  btnJoin.addEventListener("click", (e) => {
+    if (lastClick >= Date.now() - delay) return; //debaounce
+    lastClick = Date.now(); //debounce
+    const [projectCode, roleCode] = codeProjectInput.value.split("/")
+    fetch(`${window.location.origin}/project/${projectCode}/join?role=${roleCode}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.msg)
+          console.log(data.msg)
+          return
+        }
+        window.location.href = `${window.location.origin}/project/${data}`
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  })
+  // end of js for joining project
 </script>
