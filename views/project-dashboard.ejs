@@ -297,13 +297,13 @@
       const [projectCode, roleCode] = codeProjectInput.value.split("/")
       fetch(`${window.location.origin}/project/get-target-role?projectId=${projectCode}&roleId=${roleCode}`)
         .then((response) => response.json())
-        .then((data) => {
-          if (data.status === `error`) {
-            targetRole.value = data.msg
+        .then((response) => {
+          if (response.status === `error`) {
+            targetRole.value = response.msg
             return
           }
-          targetRole.value = data.data.roleName
-          console.log(data.data.roleName)
+          targetRole.value = response.data.roleName
+          console.log(response.data.roleName)
         })
         .catch((error) => {
           console.log(error);
@@ -318,13 +318,13 @@
     const [projectCode, roleCode] = codeProjectInput.value.split("/")
     fetch(`${window.location.origin}/project/${projectCode}/join?role=${roleCode}`)
       .then((response) => response.json())
-      .then((data) => {
-        if (data.status === `error`) {
-          alert(data.msg)
-          console.log(data.msg)
+      .then((response) => {
+        if (response.status === `error`) {
+          alert(response.msg)
+          console.log(response.msg)
           return
         }
-        window.location.href = `${window.location.origin}/project/${data}`
+        window.location.href = `${window.location.origin}/project/${response.data}`
       })
       .catch((error) => {
         console.log(error);
