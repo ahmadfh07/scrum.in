@@ -39,16 +39,16 @@ router.post(
     } else {
       const uuidProject = new ShortUniqueId();
       let projectId = uuidProject();
-      Project.insertMany({
+      const project = await Project.insertMany({
         projectId,
         projectName: req.body.projectName,
         projectDesc: req.body.projectDesc,
         productOwner: req.body.productOwner,
       });
-      req.body.rolesNeeded.forEach((value, index) => {
+      req.body.rolesNeeded.forEach(async (value, index) => {
         const uuidRole = new ShortUniqueId();
         let roleId = uuidRole();
-        Role.insertMany({
+        const role = await Role.insertMany({
           projectId,
           roleId,
           roleName: value,
@@ -75,6 +75,8 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
   let userRole;
   const project = await Project.findOne({ projectId: req.params.id });
   const roles = await Role.find({ projectId: req.params.id });
+  const aggregate = Role.aggregate();
+  const rolesAndHolder = await aggregate.unwind("$holders").match({ projectId: req.params.id });
   if (project) {
     if (req.user.username === project.productOwner) {
       userRole = "product owner";
@@ -86,6 +88,7 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
       userRole,
       project,
       roles,
+      rolesAndHolder,
       user: req.user,
       title: project.projectName,
       layout: "layout/main-layout",
@@ -122,5 +125,14 @@ router.get("/:id/join", ensureAuthenticated, async (req, res) => {
     res.send({ status: "error", msg: err.message });
   }
 });
+
+router.use(
+  "/:id/planning",
+  (req, res, next) => {
+    req.projectId = req.params.id;
+    next();
+  },
+  require("../controller/project-planning")
+);
 
 module.exports = router;

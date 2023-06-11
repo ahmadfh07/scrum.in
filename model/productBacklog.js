@@ -8,6 +8,10 @@ const BacklogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  storyPoint: {
+    type: Number,
+    required: true,
+  },
   definitionOfDone: {
     type: String,
     required: true,
