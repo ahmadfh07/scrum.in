@@ -1,3 +1,234 @@
-<h1 class="text-2xl text-red-500">Tab 2 Content</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
+<div class="flex flex-row">
+    <!-- Kiri -->
+    <div class="flex flex-col w-1/2 pl-8 pr-6">
+        <!-- Bagian Backlog -->
+        <div class="flex flex-col w-full">
+            <!-- Tulisan backlog dan button -->
+            <div class="flex flex-row w-full justify-between mt-2">
+                <h1 class="flex text-xs font-black ml-8 my-auto ">Backlog</h1>
+                <div class="backlog-modal-open flex px-1 flex-row w-20 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" class="bi bi-plus-lg my-auto ml-1" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                    <h1 class="flex text-[8px] my-auto text-white font-bold ml-1">Add Backlog</h1>
+                </div>
+                <div class="backlog-modal my-10 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
+                    <div class="backlog-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto">
+                        <div class="flex justify-end mt-4">
+                            <div class="backlog-modal-close w-10 justify-end">
+                                <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h1 class="font-semibold text-xl my-3 text-center">New Backlog</h1>
+                        <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
+                            <div class="w-full text-left">
+                                <label class="text-sm" for="projectName">Backlog Name</label>
+                                <h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1>
+                                <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" type="text" id="projectName" name="name" />
+                            </div>
+                            <div class="flex flex-col w-full text-left mt-4">
+                                <label class="text-sm mb-1" for="defDone">Definition of Done</label>
+                                <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" placeholder="Describe your definition of done about your backlog" type="text" id="defDone" name="defDone" />
+                            </div>
+                            <div class="flex flex-col w-full text-left mt-4">
+                                <label class="text-sm mb-1" for="storyPoint">Story point</label>
+                                <input class="border-2 px-2 py-1.5 w-32 rounded-md mt-2 text-sm" type="text" id="storyPoint" name="storyPoint" />
+
+                            </div>
+                            <div class="flex gap-x-3 self-start mt-6">
+                                <button id="btnCreateProject" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+
+            <div class="mt-2 bg-white rounded-lg">
+                <!-- List backlog -->
+                <div class="flex flex-col px-6 p-3" id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" draggable="true" ondragstart="dragStart(event)">
+                        <h1 class="flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer">Memasang Bendera Merah Putih</h1>
+                        <div class="flex flex-row w-1/6 gap-4">
+                            <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
+                                <h1 class="text-[8px] text-white m-auto">90</h1>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task2" draggable="true" ondragstart="dragStart(event)">
+                        <h1 class="flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer">Memasang Bendera Merah Putih2</h1>
+                        <div class="flex flex-row w-1/6 gap-4">
+                            <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
+                                <h1 class="text-[8px] text-white m-auto">90</h1>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total story point -->
+                <div class="flex flex-row justify-end mb-3">
+                    <div class="flex flex-row w-44">
+                        <h1 class="flex text-[6px] text-black">Total story point</h1>
+                        <h1 class="flex text-[6px] text-black pl-5">90</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sprint -->
+        <div class="" id="sprint-container">
+            <div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 ">
+                <div class="flex flex-row w-full justify-between mt-2">
+                    <h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">Sprint 1</h1>
+                    <button class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold"> Start Sprint
+                        <!-- <h1 class="flex text-[8px] m-auto text-white font-bold">Start Sprint</h1> -->
+                    </button>
+                    <div class="sprint-modal my-10 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
+                        <div class="sprint-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto">
+                            <div class="flex justify-end mt-4">
+                                <div class="sprint-modal-close w-10 justify-end">
+                                    <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h1 class="font-semibold text-xl my-3 text-center">Start Sprint</h1>
+                            <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
+                                <div class="w-full text-left">
+                                    <label class="text-sm" for="projectName">Project Name</label>
+                                    <h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1>
+                                    <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" type="text" id="projectName" name="name" />
+                                </div>
+                                <div class="flex flex-col w-full text-left mt-4">
+                                    <label class="text-sm mb-1" for="sprintStart">Start</label>
+                                    <input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintStart" id="sprintStart">
+                                </div>
+                                <div class="flex flex-col w-full text-left mt-4">
+                                    <label class="text-sm mb-1" for="sprintEnd">End</label>
+                                    <input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintEnd" id="sprintEnd">
+                                </div>
+                                <div class="flex gap-x-3 self-start mt-6">
+                                    <button id="btnCreateProject" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Ini Tempat untuk Drop Backlog yaaa.. -->
+                </div>
+                <div class="flex flex-row justify-end mb-3">
+                    <div class="flex flex-row w-44">
+                        <h1 class="flex text-[6px] text-black">Total story point</h1>
+                        <h1 class="flex text-[6px] text-black pl-5">90</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="flex border-dashed border-2 rounded-lg w-full h-12 border-black mt-7 hover:cursor-pointer" id="tambah-sprint" onclick="nambahSprint()">
+            <div class="flex flex-row m-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="black" class="bi bi-plus-lg my-auto" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+                <h1 class="text-[10px] ml-2">Click here to create sprint</h1>
+            </div>
+        </div> 
+    </div>
+
+    <!-- Kanan -->
+    <div class="w-1/2">
+        <!-- Kotakan edit -->
+        <div class="flex flex-col w-10/12 p-5 bg-white ml-4 mt-8 rounded-lg">
+            <h1 class="flex text-base font-semibold">Memasang Bendera Merah Putih</h1>
+            <div class="mt-4">
+                <h1 class="flex text-xs">Definition of done</h1>
+                <textarea class="mt-2 hover:bg-[#D9DCD9] rounded-lg text-xs placeholder:pl-3 placeholder:pt-1 hover:placeholder:text-white" placeholder="Describe your DoD about your backlog" name="" id="" cols="50" rows="5"></textarea>
+            </div>
+            <div class="flex flex-row mt-4">
+                <label class="flex text-xs text-black">Total story point</label>
+                <input class="flex text-xs text-black ml-4 w-7 hover:bg-[#D9DCD9] rounded-lg" type="text" name="" id="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JS untuk buka tutup pop-up Backlog
+    const backlogModal = document.querySelector('.backlog-modal');
+    const backlogModalOpen = document.querySelector('.backlog-modal-open');
+    const backlogModalClose = document.querySelector('.backlog-modal-close');
+
+    backlogModalOpen.addEventListener('click', function() {
+        backlogModal.classList.remove('opacity-0', 'pointer-events-none');
+        backlogModal.classList.add('opacity-100');
+    });
+
+    backlogModalClose.addEventListener('click', function() {
+        backlogModal.classList.remove('opacity-100');
+        backlogModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    window.addEventListener('click', function(e){
+        if(e.srcElement.classList.contains("sprint-modal-open")){
+            sprintModal.classList.remove('opacity-0', 'pointer-events-none');
+            sprintModal.classList.add('opacity-100');
+        }
+    })
+
+    // JS untuk buka tutup pop-up Sprint
+    const sprintModal = document.querySelector('.sprint-modal');
+    const sprintModalOpen = document.querySelector('.sprint-modal-open');
+    const sprintModalClose = document.querySelector('.sprint-modal-close');
+
+    sprintModalOpen.addEventListener('click', function() {
+        sprintModal.classList.remove('opacity-0', 'pointer-events-none');
+        sprintModal.classList.add('opacity-100');
+    });
+
+    sprintModalClose.addEventListener('click', function() {
+        sprintModal.classList.remove('opacity-100');
+        sprintModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    // Awal kode untuk draggable
+    function dragStart(event) {
+      event.dataTransfer.setData('text/plain', event.target.id);
+    }
+    
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+    
+    function drop(event) {
+      event.preventDefault();
+      const taskId = event.dataTransfer.getData('text/plain');
+      const taskElement = document.getElementById(taskId);
+      const destinationId = event.currentTarget.id;
+      const destinationElement = document.getElementById(destinationId);  
+      destinationElement.appendChild(taskElement);
+    }        
+    // Akhir kode untuk draggable
+
+    let lastSprintNumber = 1;
+    function nambahSprint() {
+        const judulSprint = document.getElementById('judul-sprint');
+        const sprintTitle = `Sprint ${lastSprintNumber +1}`;
+        lastSprintNumber += 1;
+
+ 
+        const sprintContainer = document.getElementById("sprint-container");
+        let html = `<div class="" id="sprint-container"><div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 pr-4"><div class="flex flex-row w-full justify-between mt-2"><h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">${sprintTitle}</h1><button class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold">Start Sprint</button><div class="sprint-modal my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto"><div class="sprint-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto"><div class="flex justify-end  mt-4 "><div class="sprint-modal-close w-10 justify-end"><svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" /></svg></div></div><h1 class="font-semibold text-xl my-3 text-center">Start Sprint</h1><div class="flex flex-col items-center w-10/12 mx-auto mb-8"><div class="w-full text-left"><label class="text-sm" for="name">Project Name</label><h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1><input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="projectName" name="name" /></div><div class="flex flex-col w-full text-left mt-4"><label class="text-sm mb-1" for="sprintStart">Start</label><input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintStart" id="sprintStart"></div><div class="flex flex-col w-full text-left mt-4"><label class="text-sm mb-1" for="sprintEnd">End</label><input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintEnd" id="sprintEnd"></div><div class="flex gap-x-3 self-start mt-6"><button id="btnCreateProject" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button></div></div></div></div></div><div class="flex flex-col p-6" id="sprint${lastSprintNumber}" ondrop="drop(event)" ondragover="allowDrop(event)"></div><div class="flex flex-row justify-end mb-3"><div class="flex flex-row w-44"><h1 class="flex text-[6px] text-black">Total story point</h1><h1 class="flex text-[6px] text-black pl-5">90</h1></div></div></div></div>`;
+        sprintContainer.insertAdjacentHTML("beforeend", html);
+  }
+</script>
