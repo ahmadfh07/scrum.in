@@ -4,6 +4,9 @@ const BacklogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sprintId: {
+    type: String,
+  },
   backlogName: {
     type: String,
     required: true,

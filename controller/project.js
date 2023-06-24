@@ -3,8 +3,11 @@ const router = express.Router();
 const { ensureAuthenticated } = require("../utils/auth");
 const Project = require("../model/project");
 const Role = require("../model/role");
+const Backlog = require("../model/productBacklog");
+const Sprint = require("../model/sprint");
 const { body, validationResult, check } = require("express-validator");
 const ShortUniqueId = require("short-unique-id");
+const uuidRole = new ShortUniqueId();
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
   res.render("project-dashboard", {
@@ -46,7 +49,6 @@ router.post(
         productOwner: req.body.productOwner,
       });
       req.body.rolesNeeded.forEach(async (value, index) => {
-        const uuidRole = new ShortUniqueId();
         let roleId = uuidRole();
         const role = await Role.insertMany({
           projectId,
@@ -77,6 +79,8 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
   const roles = await Role.find({ projectId: req.params.id });
   const aggregate = Role.aggregate();
   const rolesAndHolder = await aggregate.unwind("$holders").match({ projectId: req.params.id });
+  const backlogs = await Backlog.find({ projectId: req.params.id });
+  const sprints = await Sprint.find({ projectId: req.params.id });
   if (project) {
     if (req.user.username === project.productOwner) {
       userRole = "product owner";
@@ -88,6 +92,8 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
       userRole,
       project,
       roles,
+      backlogs,
+      sprints,
       rolesAndHolder,
       user: req.user,
       title: project.projectName,
@@ -125,6 +131,32 @@ router.get("/:id/join", ensureAuthenticated, async (req, res) => {
     res.send({ status: "error", msg: err.message });
   }
 });
+
+router.post(
+  "/:id/create-role",
+  [
+    body("roleName").custom(async (value, { req, location, path }) => {
+      const dupe = await Role.findOne({ roleName: value }).and({ projectId: req.params.id });
+      if (dupe) {
+        throw new Error("Role Name already been used");
+      }
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req).mapped();
+    if (Object.keys(errors).length !== 0) {
+      res.send(errors).status(400);
+    } else {
+      try {
+        let roleId = uuidRole();
+        const role = await Role.insertMany({ projectId: req.params.id, roleId, roleName: req.body.roleName });
+        res.send("success");
+      } catch (err) {
+        res.send(err.message).status(400);
+      }
+    }
+  }
+);
 
 router.use(
   "/:id/planning",
