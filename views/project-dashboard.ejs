@@ -87,7 +87,7 @@
 
   </div>
   <!-- Bagian Card-Card -->
-  <div class="flex flex-row gap-3 mt-3">
+  <div class="flex flex-row flex-wrap gap-3 mt-3">
     <% projects.forEach(e => { %>
     <div data-projectId="<%= e.projectId%>" class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
       <a href="/project/<%= e.projectId %>">
