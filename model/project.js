@@ -16,6 +16,12 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  members: [
+    {
+      username: String,
+      email: String,
+    },
+  ],
   roles: {
     type: String,
   },

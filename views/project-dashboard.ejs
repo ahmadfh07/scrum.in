@@ -16,6 +16,7 @@
           <!-- Nama -->
           <div class="flex flex-col my-auto ml-1">
             <h1 class="flex text-sm font-semibold"><%- user.fName %> <%- user.lName %></h1>
+            <h1 id="username" class="hidden"><%- user.username %></h1>
             <h1 class="flex text-xs"><%- user.email %></h1>
           </div>
         </div>
@@ -27,9 +28,9 @@
   </div>
 </div>
 
+<% if (!projects.length) { %>
 <!-- Bagian Dashboard Project (BELUM ADA PROJECT)-->
 <div class="flex flex-col items-center w-full bg-[#DEE5D4]">
-  <h1 id="username" class="hidden"><%- user.username %></h1>
   <!-- Pengumuman -->
   <div class="flex flex-col items-center text-center mt-16">
     <h1 class="flex text-base">You don't have any project yet,</h1>
@@ -58,180 +59,102 @@
 
   </div>
 </div>
-
+<% } else { %>
 
 <!-- Bagian Dashboard Project (SUDAH ADA PROJECT)-->
-<!-- <div class="flex flex-col w-full px-9 pt-5">
+<div id="projectContainer" class="flex flex-col w-full px-9 pt-5">
   <div class="flex">
-      <h1 class="flex text-xs text-left font-bold">List of Project</h1>
+    <h1 class="flex text-xs text-left font-bold">List of Project</h1>
   </div>
   <div class="flex flex-row mt-3">
-      <div class="flex flex-row w-1/2 justify-start">
-          <div class="modal-open flex flex-row mr-1 w-16 h-5 bg-white rounded-md px-1 hover:cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-plus-lg my-auto mr-[2px]" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                </svg>
-              <h1 class="text-[8px] my-auto font-medium">New Project</h1>
-          </div> -->
-<!-- Modal 1 -->
-<!-- <div class="modal my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
-              <div class="modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto">
-                  <div class="flex justify-end mt-4 ">
-                      <div class="modal-close w-10 justify-end">
-                      <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-                      </svg>
-                      </div>
-                  </div>
-                  <h1 class="font-semibold text-xl my-3 mx-auto">Create New Project</h1>
-                  <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
-                      <div class="w-full text-left">
-                          <label class="text-sm" for="name">Project Name</label>
-                          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="projectName" name="name" />
-                      </div>
-                      <div class="w-full text-left mt-2">
-                          <label class="text-sm" for="ket">Description</label><br />
-                          <textarea class="w-full text-sm border-2 px-2 py-1.5 rounded-md mt-2 h-20" type="text" id="projectDesc" name="ket"></textarea>
-                      </div>
-                      <div class="flex gap-x-2 w-full text-left mt-2">
-                          <div class="w-10/12" id="role-container">
-                              <label class="text-sm" for="tiga">Role Name</label>
-                              <div class="flex flex-row">
-                                  <div class="flex flex-col w-44">
-                                      <input id="rolesInput" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="">
-                                  </div>
-                                  <button class="flex">
-                                      <h1 onclick="nambahRole()" class="p-3 rounded-md border-2">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                                      </svg>
-                                      </h1>
-                                  </button>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="flex gap-x-3 self-start mt-4">
-                          <button id="btnCreateProject" type="submit" class="bg-black text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Create</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <div class="modal-open2 flex flex-row ml-1 w-16 h-5 bg-white rounded-md px-1 hover:cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-person-plus my-auto mr-[2px]" viewBox="0 0 16 16">
-                  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                </svg>
-              <h1 class="text-[8px] my-auto font-medium">Join Project</h1>
-          </div> -->
-<!-- Modal 2 -->
-<!-- <div class="modal2 my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-300 w-1/3 mx-auto">
-              <div class="modal-content2 flex flex-col bg-white rounded-xl shadow-lg mx-auto">
-                  <div class="flex justify-end pt-4">
-                      <div class="modal-close2 w-10 justify-end">
-                      <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-                      </svg>
-                      </div>
-                  </div>
-                  <h1 class="flex font-semibold text-xl mt-3 mx-auto">Join Project</h1>
-                  <div class="flex flex-col w-full mb-6 p-8">
-                      <div class="flex flex-col w-full mx-auto mb-8">
-                          <label class="flex text-sm items-start" for="codeproject">Your Code Project</label>
-                          <input class="w-40 bg-white border-2 px-2 py-1.5 rounded-md mt-2 placeholder:p-1 placeholder:text-sm" placeholder="Your Code" type="text" name="codeproject" id="codeproject">
-                      </div>
-          
-                      <div class="flex flex-col w-full mx-auto mb-8">
-                          <label class="flex text-sm items-start" for="targetRole">Role according to Code</label>
-                          <input class="w-60 bg-slate-100 border-2 px-2 py-1.5 rounded-md mt-2" type="text" name="targetRole" id="targetRole">
-                      </div>
-          
-                      <div class="flex flex-row mb-4 justify-start">
-                          <div class="bg-black items-start text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">
-                              <a id="btnJoin" class="px-2" href="#">Join</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+    <div class="flex flex-row w-1/2 justify-start">
+      <div class="modal-open flex flex-row mr-1 w-16 h-5 bg-white rounded-md px-1 hover:cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-plus-lg my-auto mr-[2px]" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+        </svg>
+        <h1 class="text-[8px] my-auto font-medium">New Project</h1>
       </div>
-      <div class="flex flex-row justify-end w-1/2">
-          <input class="rounded-lg w-36 h-[25px] placeholder:text-[8px] placeholder:pl-2 pb-1" placeholder="Search your project" type="text" name="" id="">
+      <div class="modal-open2 flex flex-row ml-1 w-16 h-5 bg-white rounded-md px-1 hover:cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-person-plus my-auto mr-[2px]" viewBox="0 0 16 16">
+          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+          <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+        </svg>
+        <h1 class="text-[8px] my-auto font-medium">Join Project</h1>
       </div>
 
-  </div> -->
+    </div>
+    <div class="flex flex-row justify-end w-1/2">
+      <input class="rounded-lg w-36 h-[25px] placeholder:text-[8px] placeholder:pl-2 pb-1" placeholder="Search your project" type="text" name="" id="">
+    </div>
 
-<!-- Bagian Card-Card -->
-<!-- <div class="flex flex-row gap-3 mt-3"> -->
-<!-- Card 1 -->
-<!-- <div class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
-          <h1 class="text-sm font-semibold">Project Title</h1>
-          <div id="divStatus" class="flex w-[68px] h-5 bg-[#ADEEAC] rounded-md mt-2">
-              <h1 id="teksStatus" class="m-auto text-[9px] font-semibold text-[#258B22]">Completed</h1>
-          </div>
-          <div class="flex h-[72px] w-full mt-2">
-              <p class="text-[8px] text-justify my-auto">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur, laboriosam hic fuga doloribus quisquam magni id, officia totam facilis non ducimus dicta, atque sunt ut exercitationem saepe dolores voluptatum.</p>
-          </div>
-          <div class="flex flex-col mt-3">
-              <h1 class="text-[8px] font-semibold">Team Member</h1>
-              <div class="flex flex-row mt-1 gap-[2px]">
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">S</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">D</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">R</h1>
-                  </div>
-              </div>
-          </div>
-      </div> -->
-
-<!-- Card 2 -->
-<!-- <div class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
-          <h1 class="text-sm font-semibold">Project Title</h1>
-          <div id="divStatus" class="flex w-[68px] h-5 bg-[#EEABAB] rounded-md mt-2">
-              <h1 id="teksStatus" class="m-auto text-[9px] font-semibold text-[#8B2222]">On Going</h1>
-          </div>
-          <div class="flex h-[72px] w-full mt-2">
-              <p class="text-[8px] text-justify my-auto">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur, laboriosam hic fuga doloribus quisquam magni id, officia totam facilis non ducimus dicta, atque sunt ut exercitationem saepe dolores voluptatum.</p>
-          </div>
-          <div class="flex flex-col mt-3">
-              <h1 class="text-[8px] font-semibold">Team Member</h1>
-              <div class="flex flex-row mt-1 gap-[2px]">
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">S</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">D</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">A</h1>
-                  </div>
-                  <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
-                      <h1 class="mx-auto my-auto text-sm text-white">R</h1>
-                  </div>
-              </div>
-          </div>     
-      </div>
   </div>
-</div> -->
+  <!-- Bagian Card-Card -->
+  <div class="flex flex-row gap-3 mt-3">
+    <% projects.forEach(e => { %>
+    <div data-projectId="<%= e.projectId%>" class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
+      <a href="/project/<%= e.projectId %>">
+        <h1 class="text-sm font-semibold"><%= e.projectName %></h1>
+      </a>
+      <div id="divStatus" class="flex w-[68px] h-5 bg-[#ADEEAC] rounded-md mt-2">
+        <h1 id="teksStatus" class="m-auto text-[9px] font-semibold text-[#258B22]">Completed</h1>
+      </div>
+      <div class="flex h-[72px] w-full mt-2">
+        <p class="text-[8px] text-justify my-auto"><%= e.projectDesc %></p>
+      </div>
+      <div class="flex flex-col mt-3">
+        <h1 class="text-[8px] font-semibold">Team Member</h1>
+        <div class="flex flex-row mt-1 gap-[2px]">
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white"><%= e.productOwner[0].toUpperCase() %></h1>
+          </div>
+          <% e.members.forEach(e => { %>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white"><%= e.username[0].toUpperCase() %></h1>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <!-- Card 2 -->
+    <!-- <div class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
+      <h1 class="text-sm font-semibold">Project Title</h1>
+      <div id="divStatus" class="flex w-[68px] h-5 bg-[#EEABAB] rounded-md mt-2">
+        <h1 id="teksStatus" class="m-auto text-[9px] font-semibold text-[#8B2222]">On Going</h1>
+      </div>
+      <div class="flex h-[72px] w-full mt-2">
+        <p class="text-[8px] text-justify my-auto">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur, laboriosam hic fuga doloribus quisquam magni id, officia totam facilis non ducimus dicta, atque sunt ut exercitationem saepe dolores voluptatum.</p>
+      </div>
+      <div class="flex flex-col mt-3">
+        <h1 class="text-[8px] font-semibold">Team Member</h1>
+        <div class="flex flex-row mt-1 gap-[2px]">
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">S</h1>
+          </div>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">A</h1>
+          </div>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">A</h1>
+          </div>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">D</h1>
+          </div>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">A</h1>
+          </div>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white">R</h1>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<%}%>
+
+
 
 <!-- Modal 1 -->
 <div class="modal my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
@@ -435,4 +358,15 @@
 
   })
   // end of js for joining project
+
+  // js for link project
+  const projectContainer = document.querySelector("#projectContainer")
+  
+  projectContainer.addEventListener("click",(e)=>{
+   
+    if(e.srcElement.hasAttribute("data-projectId")){
+     
+      location.assign(`${window.location.origin}/project/${e.srcElement.dataset.projectid}`)
+    }
+  })
 </script>

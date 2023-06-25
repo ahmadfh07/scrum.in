@@ -9,11 +9,15 @@ const { body, validationResult, check } = require("express-validator");
 const ShortUniqueId = require("short-unique-id");
 const uuidRole = new ShortUniqueId();
 
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
+router.get("/dashboard", ensureAuthenticated, async (req, res) => {
+  const projectAsPO = await Project.find({ productOwner: req.user.username });
+  const projectNotAsPO = await Project.find({}).elemMatch("members", { username: req.user.username });
+  const projects = [...projectAsPO, ...projectNotAsPO];
   res.render("project-dashboard", {
     user: req.user,
     title: "Project dashboard",
     layout: "layout/main-layout",
+    projects,
   });
 });
 
