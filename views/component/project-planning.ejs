@@ -198,7 +198,7 @@
   //   js for ceating new backlog
   const btnCreateBacklog = document.querySelector("#btnCreateBacklog")
   const projectId = document.querySelector("#projectId").innerHTML
-  console.log("halo")
+ 
 
   btnCreateBacklog.addEventListener("click", (e) => {
     const backlogName = document.querySelector("#backlogName").value
@@ -285,7 +285,7 @@
 
   backlogsCotainer.addEventListener("click", function(e) {
     if(e.srcElement.classList.contains('delete-backlog')){
-      console.log("notok")
+     
       fetch(`${window.location.origin}/project/${projectId}/planning/delete-backlog?id=${e.srcElement.dataset.backlogid}`, {
           method: "POST",
         })
