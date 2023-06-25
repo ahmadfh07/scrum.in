@@ -35,7 +35,7 @@
         <!-- List backlog -->
         <div class="flex flex-col px-6 p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
           <% backlogs.forEach(e => { %>
-          <div class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" draggable="true" ondragstart="dragStart(event)">
+          <div data-backlogId="<%= e._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" draggable="true" ondragstart="dragStart(event)">
             <h1 data-backlogId="<%= e._id %>" class="backlog-item flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer"><%= e.backlogName %></h1>
             <div class="flex flex-row w-1/6 gap-4">
               <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="sprintBacklogContainer" class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
           <!-- Ini Tempat untuk Drop Backlog yaaa.. -->
         </div>
         <div class="flex flex-row justify-end mb-3">
@@ -199,7 +199,6 @@
   const btnCreateBacklog = document.querySelector("#btnCreateBacklog")
   const projectId = document.querySelector("#projectId").innerHTML
  
-
   btnCreateBacklog.addEventListener("click", (e) => {
     const backlogName = document.querySelector("#backlogName").value
     const defDone = document.querySelector("#defDone").value
@@ -245,8 +244,10 @@
   });
 
   // Awal kode untuk draggable
+  let draggedItem = null
   function dragStart(event) {
-    event.dataTransfer.setData('text/plain', event.target.id);
+    // event.dataTransfer.setData('text/plain', event.target.id);
+    draggedItem = event.target
   }
 
   function allowDrop(event) {
@@ -255,11 +256,11 @@
 
   function drop(event) {
     event.preventDefault();
-    const taskId = event.dataTransfer.getData('text/plain');
-    const taskElement = document.getElementById(taskId);
+    // const taskId = event.dataTransfer.getData('text/plain');
+    // const taskElement = document.getElementById(taskId);
     const destinationId = event.currentTarget.id;
     const destinationElement = document.getElementById(destinationId);
-    destinationElement.appendChild(taskElement);
+    destinationElement.appendChild(draggedItem);
   }
   // Akhir kode untuk draggable
 

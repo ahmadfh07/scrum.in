@@ -12,6 +12,10 @@ const SprintSchema = new mongoose.Schema({
   finishDate: {
     type: Date,
   },
+  backlogs: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
