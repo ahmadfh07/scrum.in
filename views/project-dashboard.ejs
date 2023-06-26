@@ -90,7 +90,7 @@
   <div class="flex flex-row flex-wrap gap-3 mt-3">
     <% projects.forEach(e => { %>
     <div data-projectId="<%= e.projectId%>" class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
-      <a href="/project/<%= e.projectId %>">
+      <a href="/project/<%= e.projectId %>/overview">
         <h1 class="text-sm font-semibold"><%= e.projectName %></h1>
       </a>
       <div id="divStatus" class="flex w-[68px] h-5 bg-[#ADEEAC] rounded-md mt-2">
@@ -151,8 +151,6 @@
   </div>
 </div>
 <%}%>
-
-
 
 <!-- Modal 1 -->
 <div class="modal my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
@@ -348,7 +346,7 @@
           console.log(response.msg)
           return
         }
-        window.location.href = `${window.location.origin}/project/${response.data}`
+        window.location.href = `${window.location.origin}/project/${response.data}/overview`
       })
       .catch((error) => {
         console.log(error);
@@ -364,7 +362,7 @@
    
     if(e.srcElement.hasAttribute("data-projectId")){
      
-      location.assign(`${window.location.origin}/project/${e.srcElement.dataset.projectid}`)
+      location.assign(`${window.location.origin}/project/${e.srcElement.dataset.projectid}/overview`)
     }
   })
 </script>

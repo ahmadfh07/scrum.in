@@ -7,14 +7,9 @@ const SprintSchema = new mongoose.Schema({
   startDate: {
     type: Date,
     default: Date.now,
-    required: true,
   },
   finishDate: {
     type: Date,
-  },
-  backlogs: {
-    type: String,
-    required: true,
   },
   date: {
     type: Date,

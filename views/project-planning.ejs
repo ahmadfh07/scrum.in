@@ -1,0 +1,498 @@
+<!-- Bagian yang mirip Navbar -->
+<div class="flex flex-row w-full h-14 pt-3">
+  <!-- Kiri -->
+  <div class="flex flex-row w-4/5">
+    <h1 class="pl-5 pt-2 text-xs font-medium">Dashboard</h1>
+    <h1 class="pl-2 pt-2 text-xs font-medium">/</h1>
+    <h1 class="pl-2 pt-2 text-xs font-light">Project</h1>
+    <h1 class="pl-2 pt-2 text-xs font-medium">/</h1>
+    <h1 class="pl-2 pt-2 text-xs font-light"><%= project.projectName %></h1>
+    <h1 class="pl-2 pt-2 text-xs font-medium">/</h1>
+    <h1 class="pl-2 pt-2 text-xs font-light">Planning</h1>
+  </div>
+  <!-- Kanan / Profil-->
+  <div class="dropdown inline-block relative mb-2">
+    <button class="flex w-full">
+      <span class="flex mr-1">
+        <div class="flex flex-row w-1/5 mb-2">
+          <!-- Avatar -->
+          <img class="flex w-16 my-auto mr-1" src="/assets/user_avatar.png" alt="">
+          <!-- Nama -->
+          <div class="flex flex-col my-auto ml-1">
+            <h1 class="flex text-sm font-semibold"><%- user.fName %> <%- user.lName %></h1>
+            <h1 class="flex text-xs"><%- user.email %></h1>
+          </div>
+        </div>
+      </span>
+    </button>
+    <ul class="dropdown-menu absolute hidden text-black items-center">
+      <li class="justify-center"><a class="w-44 rounded-b-xl hover:bg-green-200 py-2 px-4 block text-sm font-semibold justify-center" href="/signout">Sign Out</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- The wrapper of tabs -->
+<div>
+  <!-- Tab Buttons -->
+  <div id="tab-buttons" class="flex ml-12 bg-[#DEE5D4]">
+    <a href="/project/<%= project.projectId %>/overview" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Overview
+      <hr class="border mt-2 rounded-lg">
+    </a>
+    <a href="/project/<%= project.projectId %>/planning" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Planning
+      <hr class="border mt-2 rounded-lg">
+    </a>
+    <a href="javascript:void(0)" onclick="changeTab(event, 2)" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Timeline
+      <hr class="border mt-2 rounded-lg">
+    </a>
+  </div>
+
+  <!-- Tab Panels -->
+  <div id="tab-panels" class="px-8 py-6 m-auto">
+    <div>
+      <% if (!backlogs.length || !sprints.length) { %>
+      <!-- JIKA BELUM ADA BACKLOG DAN SPRINT -->
+      <div class="<%= user.username != project.productOwner ? '' : 'backlog-modal-open' %> flex-col justify-center items-center mt-2 mb-5 mx-9">
+        <span id="projectId" class="hidden"><%= project.projectId %></span>
+        <h2 class="text-xs font-bold mt-10 mb-4">Backlog</h2>
+        <label class="flex justify-center w-full h-11 px-4 transition border-2 border-black border-dashed rounded-lg appearance-none hover:cursor-pointer hover:border-gray-400 focus:outline-none">
+          <span class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-plus-lg my-auto mr-[2px]" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            </svg>
+            <h1 class="font-medium text-[10px] text-black"> <%= user.username != project.productOwner ? 'Currently no plan, contact your Product Owner' : 'Click here to add your first backlog' %> and start managing your project </h1>
+          </span>
+        </label>
+      </div>
+      <% } else { %>
+      <!-- JIKA SUDAH ADA BACKLOG -->
+      <div class="flex flex-row">
+        <span id="projectId" class="hidden"><%= project.projectId %></span>
+        <!-- Kiri -->
+        <div id="planningContainer" class="flex flex-col w-1/2 pl-8 pr-6">
+          <!-- Bagian Backlog -->
+          <div class="flex flex-col w-full">
+            <!-- Tulisan backlog dan button -->
+            <div class="flex flex-row w-full justify-between mt-2">
+              <h1 class="flex text-xs font-black ml-8 my-auto ">Backlog</h1>
+              <div id="btnNewbacklog" class="<% if (user.username != project.productOwner) { %> hidden <% } %>backlog-modal-open flex px-1 flex-row w-20 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" class="bi bi-plus-lg my-auto ml-1" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                </svg>
+                <h1 class="flex text-[8px] my-auto text-white font-bold ml-1">Add Backlog</h1>
+              </div>
+            </div>
+
+            <div class="mt-2 bg-white rounded-lg">
+              <!-- List backlog -->
+              <div class="flex flex-col px-6 p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <% backlogs.forEach(e => { %>
+                <% if (e.sprintId == "") { %>
+                <div data-backlogId="<%= e._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (user.username == project.productOwner) { %> draggable="true" <% } %>ondragstart="dragStart(event)">
+                  <h1 data-backlogId="<%= e._id %>" class="backlog-item flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer"><%= e.backlogName %></h1>
+                  <div class="flex flex-row w-1/6 gap-4">
+                    <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
+                      <h1 class="text-[8px] text-white m-auto"><%= e.storyPoint %></h1>
+                    </div>
+                    <% if (user.username == project.productOwner) { %>
+                    <svg data-backlogId="<%= e._id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="delete-backlog bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                    <% } %>
+                  </div>
+                </div>
+                <% } %>
+                <% }) %>
+              </div>
+
+              <!-- Total story point -->
+              <div class="flex flex-row justify-end mb-3">
+                <div class="flex flex-row w-44">
+                  <h1 class="flex text-[6px] text-black">Total story point</h1>
+                  <h1 class="flex text-[6px] text-black pl-5">90</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sprint -->
+          <div class="" id="sprint-container">
+            <% sprints.forEach(sprint => { %>
+            <div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 pr-4">
+              <div class="flex flex-row w-full justify-between mt-2">
+                <h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">Sprint 1</h1>
+                <button class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold"> Start Sprint
+                </button>
+              </div>
+              <div id="sprintBacklogContainer" data-sprintId="<%= sprint._id %>" class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <% backlogs.forEach(backlog => { %>
+                <% if (backlog.sprintId == sprint._id) { %>
+                <div data-backlogId="<%= backlog._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (user.username == project.productOwner) { %> draggable="true" <% } %>ondragstart="dragStart(event)">
+                  <h1 data-backlogId="<%= backlog._id %>" class="backlog-item flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer"><%= backlog.backlogName %></h1>
+                  <div class="flex flex-row w-1/6 gap-4">
+                    <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
+                      <h1 class="text-[8px] text-white m-auto"><%= backlog.storyPoint %></h1>
+                    </div>
+                    <% if (user.username == project.productOwner) { %>
+                    <svg data-backlogId="<%= backlog._id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="delete-backlog bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                    <% } %>
+                  </div>
+                </div>
+                <% } %>
+                <% }) %>
+                <!-- Ini Tempat untuk Drop Backlog yaaa.. -->
+              </div>
+              <div class="flex flex-row justify-end mb-3">
+                <div class="flex flex-row w-44">
+                  <h1 class="flex text-[6px] text-black">Total story point</h1>
+                  <h1 class="flex text-[6px] text-black pl-5">90</h1>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+          <% if (user.username == project.productOwner) { %>
+          <div class="flex border-dashed border-2 rounded-lg w-full h-12 border-black mt-7 hover:cursor-pointer" id="tambah-sprint" onclick="nambahSprint()">
+            <div class="flex flex-row m-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="black" class="bi bi-plus-lg my-auto" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+              </svg>
+              <h1 class="text-[10px] ml-2">Click here to create sprint</h1>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <!-- Kanan -->
+        <div class="w-1/2">
+          <!-- Kotakan edit -->
+          <div class="flex flex-col w-10/12 p-5 bg-white ml-4 mt-8 rounded-lg">
+            <h1 id="editableBacklogName" class="flex text-base font-semibold"><%= backlogs[0].backlogName %></h1>
+            <div class="mt-4">
+              <h1 class="flex text-xs">Definition of done</h1>
+              <textarea class="mt-2 hover:bg-[#D9DCD9] rounded-lg text-xs placeholder:pl-3 placeholder:pt-1 hover:placeholder:text-white" placeholder="Describe the DoD of your backlog" name="" id="editableDefinitionOfDone" cols="50" rows="5"><%= backlogs[0].definitionOfDone %></textarea>
+            </div>
+            <div class="flex flex-row mt-4">
+              <label class="flex text-xs text-black">Total story point</label>
+              <input value="<%= backlogs[0].storyPoint %>" id="editableStoryPoint" class="flex text-xs text-black ml-4 w-7 hover:bg-[#D9DCD9] rounded-lg" type="text">
+            </div>
+            <% if (user.username == project.productOwner) { %>
+            <div class="flex gap-x-3 self-start mt-6">
+              <button id="btnSaveBacklogUpdate" data-backlogId="<%= backlogs[0]._id %>" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-lg py-2 px-3 text-[10px]">Save Update</button>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <%}%>
+  
+   <!-- modal new backlog -->
+   <div class="backlog-modal my-10 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
+    <div class="backlog-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto">
+      <div class="flex justify-end mt-4">
+        <div class="backlog-modal-close w-10 justify-end">
+          <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+          </svg>
+        </div>
+      </div>
+      <h1 class="font-semibold text-xl my-3 text-center">New Backlog</h1>
+      <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
+        <div class="w-full text-left">
+          <label class="text-sm" for="backlogName">Backlog Name</label>
+          <h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1>
+          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" type="text" id="backlogName" name="name" />
+        </div>
+        <div class="flex flex-col w-full text-left mt-4">
+          <label class="text-sm mb-1" for="defDone">Definition of Done</label>
+          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" placeholder="Describe the definition of done of your backlog" type="text" id="defDone" name="defDone" />
+        </div>
+        <div class="flex flex-col w-full text-left mt-4">
+          <label class="text-sm mb-1" for="storyPoint">Story point</label>
+          <input class="border-2 px-2 py-1.5 w-32 rounded-md mt-2 text-sm" type="number" id="storyPoint" name="storyPoint" />
+  
+        </div>
+        <div class="flex gap-x-3 self-start mt-6">
+          <button id="btnCreateBacklog" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal sprint -->
+  <div class="sprint-modal my-10 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
+    <div class="sprint-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto">
+      <div class="flex justify-end mt-4">
+        <div class="sprint-modal-close w-10 justify-end">
+          <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+          </svg>
+        </div>
+      </div>
+      <h1 class="font-semibold text-xl my-3 text-center">Start Sprint</h1>
+      <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
+        <div class="w-full text-left">
+          <label class="text-sm" for="projectName">Sprint Name</label>
+          <h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1>
+          <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2 text-sm" type="text" id="projectName" name="name" />
+        </div>
+        <div class="flex flex-col w-full text-left mt-4">
+          <label class="text-sm mb-1" for="sprintStart">Start</label>
+          <input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintStart" id="sprintStart">
+        </div>
+        <div class="flex flex-col w-full text-left mt-4">
+          <label class="text-sm mb-1" for="sprintEnd">End</label>
+          <input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintEnd" id="sprintEnd">
+        </div>
+        <div class="flex gap-x-3 self-start mt-6">
+          <button id="btnCreateProject" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <div class="hidden">
+      <%- include('component/project-timeline'); %>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // JS untuk buka tutup pop-up Backlog
+  const backlogModal = document.querySelector('.backlog-modal');
+  const backlogModalOpen = document.querySelector('.backlog-modal-open');
+  const backlogModalClose = document.querySelector('.backlog-modal-close');
+
+  backlogModalOpen.addEventListener('click', function() {
+    backlogModal.classList.remove('opacity-0', 'pointer-events-none');
+    backlogModal.classList.add('opacity-100');
+  });
+
+  backlogModalClose.addEventListener('click', function() {
+    backlogModal.classList.remove('opacity-100');
+    backlogModal.classList.add('opacity-0', 'pointer-events-none');
+  });
+
+  window.addEventListener('click', function(e) {
+    if (e.srcElement.classList.contains("sprint-modal-open")) {
+      sprintModal.classList.remove('opacity-0', 'pointer-events-none');
+      sprintModal.classList.add('opacity-100');
+    }
+  })
+
+  //   js for ceating new backlog
+  const btnCreateBacklog = document.querySelector("#btnCreateBacklog")
+  const projectId = document.querySelector("#projectId").innerHTML
+
+  btnCreateBacklog.addEventListener("click", (e) => {
+    const backlogName = document.querySelector("#backlogName").value
+    const defDone = document.querySelector("#defDone").value
+    const storyPoint = document.querySelector("#storyPoint").value
+    fetch(`${window.location.origin}/project/${projectId}/planning/create-backlog`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "backlogName": backlogName,
+          "storyPoint": storyPoint,
+          "definitionOfDone": defDone
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.errors)
+          console.log(data)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  })
+
+  // JS untuk buka tutup pop-up Sprint
+  const sprintModal = document.querySelector('.sprint-modal');
+  const sprintModalOpen = document.querySelector('.sprint-modal-open');
+  const sprintModalClose = document.querySelector('.sprint-modal-close');
+
+  sprintModalOpen.addEventListener('click', function() {
+    sprintModal.classList.remove('opacity-0', 'pointer-events-none');
+    sprintModal.classList.add('opacity-100');
+  });
+
+  sprintModalClose.addEventListener('click', function() {
+    sprintModal.classList.remove('opacity-100');
+    sprintModal.classList.add('opacity-0', 'pointer-events-none');
+  });
+
+  // Awal kode untuk draggable
+  let draggedItem = null
+
+  function dragStart(event) {
+    // event.dataTransfer.setData('text/plain', event.target.id);
+    draggedItem = event.target
+  }
+
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    // const taskId = event.dataTransfer.getData('text/plain');
+    // const taskElement = document.getElementById(taskId);
+    const destinationId = event.currentTarget.id;
+    const destinationElement = document.getElementById(destinationId);
+    event.currentTarget.appendChild(draggedItem);
+    console.log(event.currentTarget.dataset.sprintid, draggedItem.dataset.backlogid)
+    fetch(`${window.location.origin}/project/${projectId}/planning/insert-backlog-to-sprint`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "backlogId": draggedItem.dataset.backlogid,
+          "sprintId": event.currentTarget.dataset.sprintid
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.errors)
+          console.log(data)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  // Akhir kode untuk draggable
+
+  let lastSprintNumber = 1;
+
+  function nambahSprint() {
+    // const judulSprint = document.getElementById('judul-sprint');
+    // const sprintTitle = `Sprint ${lastSprintNumber +1}`;
+    // lastSprintNumber += 1;
+
+
+    // const sprintContainer = document.getElementById("sprint-container");
+    // let html = `<div class="" id="sprint-container"><div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 pr-4"><div class="flex flex-row w-full justify-between mt-2"><h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">${sprintTitle}</h1><button class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold">Start Sprint</button><div class="sprint-modal my-4 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto"><div class="sprint-modal-content flex flex-col bg-white rounded-xl shadow-lg m-auto"><div class="flex justify-end  mt-4 "><div class="sprint-modal-close w-10 justify-end"><svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" /></svg></div></div><h1 class="font-semibold text-xl my-3 text-center">Start Sprint</h1><div class="flex flex-col items-center w-10/12 mx-auto mb-8"><div class="w-full text-left"><label class="text-sm" for="name">Project Name</label><h1 class="text-[8px]"><span class="text-red-700">*</span>Please fill the textbox below</h1><input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="projectName" name="name" /></div><div class="flex flex-col w-full text-left mt-4"><label class="text-sm mb-1" for="sprintStart">Start</label><input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintStart" id="sprintStart"></div><div class="flex flex-col w-full text-left mt-4"><label class="text-sm mb-1" for="sprintEnd">End</label><input class="text-xs w-1/3 border-2 rounded-lg h-8" type="date" name="sprintEnd" id="sprintEnd"></div><div class="flex gap-x-3 self-start mt-6"><button id="btnCreateProject" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button></div></div></div></div></div><div class="flex flex-col p-6" id="sprint${lastSprintNumber}" ondrop="drop(event)" ondragover="allowDrop(event)"></div><div class="flex flex-row justify-end mb-3"><div class="flex flex-row w-44"><h1 class="flex text-[6px] text-black">Total story point</h1><h1 class="flex text-[6px] text-black pl-5">90</h1></div></div></div></div>`;
+    // sprintContainer.insertAdjacentHTML("beforeend", html);
+    fetch(`${window.location.origin}/project/${projectId}/planning/create-sprint`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "backlogName": "dummy",
+          "storyPoint": 60,
+          "definitionOfDone": "dummy"
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.errors)
+          console.log(data)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+  //js untuk hapus dan update backlog
+  const planningContainer = document.querySelector("#planningContainer")
+  const editableBacklogName = document.querySelector("#editableBacklogName")
+  const editableDefinitionOfDone = document.querySelector("#editableDefinitionOfDone")
+  const editableStoryPoint = document.querySelector("#editableStoryPoint")
+  const btnSaveBacklogUpdate = document.querySelector("#btnSaveBacklogUpdate")
+  planningContainer.addEventListener("click", function(e) {
+    if (e.srcElement.classList.contains('delete-backlog')) {
+
+      fetch(`${window.location.origin}/project/${projectId}/planning/delete-backlog?id=${e.srcElement.dataset.backlogid}`, {
+          method: "POST",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === `error`) {
+            alert(data.errors)
+            console.log(data)
+            return
+          }
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    if (e.srcElement.classList.contains('backlog-item')) {
+      fetch(`${window.location.origin}/project/${projectId}/planning/get-backlog?id=${e.srcElement.dataset.backlogid}`, {})
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === `error`) {
+            alert(data.errors)
+            console.log(data)
+            return
+          }
+          const {
+            _id,
+            backlogName,
+            definitionOfDone,
+            storyPoint
+          } = data.data
+          console.log(_id)
+          editableBacklogName.innerHTML = backlogName
+          editableDefinitionOfDone.innerHTML = definitionOfDone
+          editableStoryPoint.value = storyPoint
+          btnSaveBacklogUpdate.setAttribute("data-backlogid", _id)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  })
+
+  // js for updating backlog
+  btnSaveBacklogUpdate.addEventListener("click", (e) => {
+    fetch(`${window.location.origin}/project/${projectId}/planning/update-backlog?id=${e.srcElement.dataset.backlogid}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "backlogName": editableBacklogName.innerHTML,
+          "storyPoint": editableStoryPoint.value,
+          "definitionOfDone": editableDefinitionOfDone.value
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.errors)
+          console.log(data)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  })
+</script>

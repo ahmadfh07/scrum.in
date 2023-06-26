@@ -48,11 +48,12 @@
       <% if (typeof project == 'undefined') { %>
 
       <% } else { %>
-
+      <% if (user.username == project.productOwner) { %>
       <hr class="h-px bg-white w-full">
       <div class="modal-open3 flex h-12 justify-center text-white font-normal w-full hover:bg-white hover:text-black">
         <h1 class="text-xs m-auto">Invite Team Member</h1>
       </div>
+      <% } %>
       <!-- Modal -->
       <div class="modal3 my-20 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-1/3 m-auto">
         <div class="modal-content3 flex-col bg-white rounded-xl shadow-lg m-auto">
@@ -87,8 +88,8 @@
               </div>
               <div onclick="copyUrl()" class="flex border ml-7 mt-7 h-9 w-9 text-white hover:bg-[#DEE5D4] hover:text-black rounded-lg text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-clipboard m-auto" viewBox="0 0 16 16">
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                 </svg>
               </div>
             </div>
@@ -99,8 +100,8 @@
               </div>
               <div onclick="copyCode()" class="flex border ml-7 mt-7 h-9 w-9 text-white hover:bg-[#DEE5D4] hover:text-black rounded-lg text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-clipboard m-auto" viewBox="0 0 16 16">
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                 </svg>
               </div>
             </div>
@@ -161,24 +162,23 @@
 
   // js for copy the project link
   function copyUrl() {
-  var copyText = document.getElementById("urlField");
-  // Select the text field
-  copyText.select();
-   // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.value);
-  // Alert the copied text
-  // alert("Project role url copied ");
+    var copyText = document.getElementById("urlField");
+    // Select the text field
+    copyText.select();
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText.value);
+    // Alert the copied text
+    // alert("Project role url copied ");
   }
 
   // js for copy the project code
   function copyCode() {
-  var copyText2 = document.getElementById("codeField");
-  // Select the text field
-  copyText2.select();
-   // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText2.value);
-  // Alert the copied text
-  // alert("Project role code copied ");
-}
-
+    var copyText2 = document.getElementById("codeField");
+    // Select the text field
+    copyText2.select();
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText2.value);
+    // Alert the copied text
+    // alert("Project role code copied ");
+  }
 </script>

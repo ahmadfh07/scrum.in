@@ -77,7 +77,7 @@ router.get("/get-target-role", async (req, res) => {
   }
 });
 
-router.get("/:id", ensureAuthenticated, async (req, res) => {
+router.get("/:id/overview", ensureAuthenticated, async (req, res) => {
   let userRole;
   const project = await Project.findOne({ projectId: req.params.id });
   const roles = await Role.find({ projectId: req.params.id });
@@ -129,6 +129,7 @@ router.get("/:id/join", ensureAuthenticated, async (req, res) => {
       throw new Error(`Anda sudah terdaftar sebagai product owner`);
     }
     const updatedRole = await Role.findOneAndUpdate({ projectId: req.params.id, roleId: req.query.role }, { $push: { holders: { username, email } } });
+    const updatedProject = await Project.findOneAndUpdate({ projectId: req.params.id }, { $push: { members: { username: req.user.username, email: req.user.email } } });
     res.send({ status: "sucess", data: req.params.id });
   } catch (err) {
     console.log(project);
