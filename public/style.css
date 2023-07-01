@@ -997,6 +997,14 @@ video {
   width: 100%;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
+.w-1\/12 {
+  width: 8.333333%;
+}
+
 .flex-auto {
   flex: 1 1 auto;
 }
@@ -1302,6 +1310,11 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-br {
