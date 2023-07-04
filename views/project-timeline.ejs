@@ -46,8 +46,297 @@
   </div>
 
   <!-- Tab Panels -->
-  <div id="tab-panels" class="px-8 py-6 m-auto">
-    <div class="flex flex-col w-2/3 m-auto">
+  <div id="tab-panels" class="px-8 m-auto">
+    <div class="flex flex-col w-full m-auto">
+      <!-- Tab Buttons -->
+      <div id="tab-buttons2" class="flex justify-center bg-[#DEE5D4]">
+          <a href="javascript:void(0)" onclick="changeTab(event, 0)" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Calendar
+              <hr class="border mt-2 rounded-lg">
+          </a>
+          <a href="javascript:void(0)" onclick="changeTab(event, 1)" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Board
+              <hr class="border mt-2 rounded-lg">
+          </a>
+      </div>
+
+      <!-- Tab Panels -->
+      <div id="tab-panels2" class="px-8 py-2 w-full m-auto">
+        <div class="hidden">
+            <h1 class="text-2xl text-red-500">Tab 2 Content</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, doloremque.</p>
+        </div>
+
+        <div class="flex flex-row gap-1">
+            <!-- KIRI -->
+            <div class="flex flex-row w-7/12 pl-8 pr-6 gap-4">
+                <!-- TO DO -->
+                <div class="flex flex-col w-36">
+                    <div class="flex flex-row w-full justify-between mt-2">
+                        <h1 class="flex text-[10px] my-auto px-3">To do</h1>
+                    </div>
+      
+                    <div class="rounded-lg">
+                        <!-- List backlog -->
+                        <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
+                               <h1 class="backlog-item flex my-auto text-[8px] w-full ">Mandi dan juga sikat gigi</h1>
+                               <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                                    <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog2" draggable="true" ondragstart="dragStart(event)">
+                                <h1 class="backlog-item flex my-auto text-[8px] w-full">Keliling kampung sampe 10 kali sambil bawa lilin.</h1>
+                                <div class="mt-1 flex flex-row flex-wrap h-3 gap-0.5 w-full justify-start">
+                                    <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                    </div>
+                                    <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOING -->
+                <div class="flex flex-col w-36">
+                    <div class="flex flex-row w-full justify-between mt-2">
+                        <h1 class="flex text-[10px] my-auto px-3">Doing</h1>
+                    </div>
+      
+                    <div class="rounded-lg">
+                        <!-- List backlog -->
+                        <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog3" draggable="true" ondragstart="dragStart(event)">
+                                <h1 class="backlog-item flex my-auto text-[8px] w-full ">Mandi dan juga sikat gigi</h1>
+                                <div class="mt-1 flex flex-row flex-wrap h-3 gap-0.5 w-full justify-start">
+                                     <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                         <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMPLETED -->
+                <div class="flex flex-col w-36">
+                    <div class="flex flex-row w-full justify-between mt-2">
+                        <h1 class="flex text-[10px] my-auto px-3">Doing</h1>
+                    </div>
+      
+                    <div class="rounded-lg">
+                        <!-- List backlog -->
+                        <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog4" draggable="true" ondragstart="dragStart(event)">
+                                <h1 class="backlog-item flex my-auto text-[8px] w-full ">Mandi dan juga sikat gigi</h1>
+                                <div class="mt-1 flex flex-row flex-wrap h-3 gap-0.5 w-full justify-start">
+                                     <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                         <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                     </div>
+                                     <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                                    </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+
+            <!-- KANAN -->
+            <div class="flex flex-col h-[460px] p-4 bg-white rounded-xl w-5/12">
+                <h1 class="flex text-base font-semibold">Mandi dan juga sikat gigi</h1>
+                <div class="flex flex-col mt-3 gap-1">
+                    <h1 class="text-[10px]">Assigned</h1>
+                    <div class="flex flex-row gap-1">
+                        <div class="flex rounded-full w-5 h-5 bg-slate-500">
+                            <h1 class="flex text-sm text-white m-auto">C</h1>
+                        </div>
+                        <div class="flex rounded-full w-5 h-5 bg-slate-500">
+                           <h1 class="flex text-sm text-white m-auto">C</h1>
+                        </div>
+                        <div class="member-modal-open flex rounded-full w-5 h-5 border-2 border-dashed border-slate-500 hover:cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" fill="currentColor" class="bi bi-person-plus m-auto" viewBox="0 0 16 16">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                        </div>
+                        <!-- Modal untuk assign -->
+                        <div class="member-modal mt-10 fixed inset-0 opacity-0 pointer-events-none transition duration-800 w-40 mx-auto">
+                            <div class="modal-content flex flex-col bg-white rounded-md shadow-lg m-auto">
+                                <div class="flex justify-end mt-2">
+                                    <div class="member-modal-close w-5 justify-end">
+                                        <svg class="hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h1 class="font-semibold text-[8px] text-center mb-2">Project Member</h1>
+                                <div class="flex flex-col items-center w-10/12 mx-auto mb-3 gap-1">
+                                    <div class="flex flex-row hover:bg-slate-100 hover:cursor-pointer w-full gap-1">
+                                        <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                            <h1 class="flex text-[10px] text-white m-auto">C</h1>
+                                        </div>
+                                        <h1 class="flex text-[8px] my-auto">Cipto Ardiantoro</h1>
+                                    </div>
+                                    <div class="flex flex-row hover:bg-slate-100 hover:cursor-pointer w-full gap-1">
+                                        <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                            <h1 class="flex text-[10px] text-white m-auto">A</h1>
+                                        </div>
+                                        <h1 class="flex text-[8px] my-auto">Ahmad Faqih</h1>
+                                    </div>
+                                    <div class="flex flex-row hover:bg-slate-100 hover:cursor-pointer w-full gap-1">
+                                        <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                            <h1 class="flex text-[10px] text-white m-auto">R</h1>
+                                        </div>
+                                        <h1 class="flex text-[8px] my-auto">Rizky Hafizh</h1>
+                                    </div>
+                                    <div class="flex flex-row hover:bg-slate-100 hover:cursor-pointer w-full gap-1">
+                                        <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                            <h1 class="flex text-[10px] text-white m-auto">R</h1>
+                                        </div>
+                                        <h1 class="flex text-[8px] my-auto">Riefkyanov Surya</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="flex flex-row mt-3">
+                    <h1 class="flex text-[10px]">Story Point</h1>
+                    <h1 class="flex text-[10px] ml-4">8</h1>
+                </div>
+                <div class="flex flex-col mt-3 gap-1">
+                    <h1 class="flex text-[10px]">Definition of Done</h1>
+                    <p class="flex text-[10px]">Ini nanti diisi Definition of Done ya qih. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam atque beatae praesentium accusamus reprehenderit veniam autem magnam, voluptates ad rem.</p>
+                </div>
+                <div class="flex flex-col mt-3 gap-1">
+                    <h1 class="flex text-[10px]">Comment</h1>
+                    <input class="flex rounded-lg hover:border-black border-2" type="text" name="" id="">
+                </div>
+                <!-- List Comment -->
+                <div class="flex flex-col gap-2 p-2 mt-3 border-2 w-full h-40 overflow-scroll rounded-lg">
+                    <div class="flex flex-col gap-1">
+                        <div class=" flex flex-row gap-1">
+                            <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                <h1 class="flex text-[10px] text-white m-auto">R</h1>
+                            </div>
+                            <h1 class="flex text-[10px]">Riefkyanov</h1>
+                        </div>
+                        <p class="flex text-[10px] text-justify">Ini isi komennya. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam nisi aut voluptatum facere labore mollitia, doloremque corrupti deserunt ut eveniet.</p>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class=" flex flex-row gap-1">
+                            <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                <h1 class="flex text-[10px] text-white m-auto">A</h1>
+                            </div>
+                            <h1 class="flex text-[10px]">Ahmad Faqih</h1>
+                        </div>
+                        <p class="flex text-[10px] text-justify">Ini isi komennya. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, ullam nisi..</p>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class=" flex flex-row gap-1">
+                            <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                                <h1 class="flex text-[10px] text-white m-auto">D</h1>
+                            </div>
+                            <h1 class="flex text-[10px]">Daniel Dwi</h1>
+                        </div>
+                        <p class="flex text-[10px] text-justify">Ini isi komennya. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet minus deleniti dignissimos eum ea doloremque, provident dolore optio omnis autem culpa voluptatum vitae voluptatem similique sapiente ducimus esse ullam recusandae eos aspernatur quo. Eveniet assumenda autem dicta consequuntur laboriosam nulla facere? Itaque corrupti magnam magni ex eligendi debitis eius, totam reiciendis aliquid, delectus vel odio perspiciatis ea ad maxime corporis recusandae deserunt quas nihil eum sint, illum quibusdam praesentium. Labore cum illum sint obcaecati ad asperiores repellat quia veritatis rerum consequatur ipsum eaque laboriosam fugit mollitia, blanditiis error, amet suscipit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi fugiat officia nulla quos necessitatibus, omnis, molestiae odio, dolorem maxime hic modi. Cupiditate commodi sed tenetur magnam ratione alias autem ipsum voluptate ducimus maiores. Inventore odio deleniti possimus exercitationem tenetur amet magnam molestiae minima tempora, ducimus optio nam, odit consequatur quibusdam suscipit aspernatur velit hic culpa dolores eius. Explicabo temporibus quidem a soluta illum praesentium consectetur excepturi dolore debitis beatae quisquam, ab fugit error laborum id hic ipsum tempore in dolorem!</p>
+                    </div>
+                </div>
+                <button class="bg-[#4B6D5F] mt-2 hover:bg-[#7c9c8e] rounded-2xl w-14 h-8 text-[10px] text-white">Save</button>
+            </div>
+          </div>
+      </div>
+
+
     </div>
   </div>
 </div>
+
+<script>
+  // JS untuk buka tutup pop-up
+  const modal = document.querySelector('.member-modal');
+    const modalOpen = document.querySelector('.member-modal-open');
+    const modalClose = document.querySelector('.member-modal-close');
+
+    modalOpen.addEventListener('click', function() {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+    });
+
+    modalClose.addEventListener('click', function() {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    // Awal kode untuk draggable
+    let draggedItem = null
+
+    function dragStart(event) {
+        // event.dataTransfer.setData('text/plain', event.target.id);
+        draggedItem = event.target
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        // const taskId = event.dataTransfer.getData('text/plain');
+        // const taskElement = document.getElementById(taskId);
+        const destinationId = event.currentTarget.id;
+        const destinationElement = document.getElementById(destinationId);
+        event.currentTarget.appendChild(draggedItem);
+        console.log(event.currentTarget.dataset.sprintid, draggedItem.dataset.backlogid)
+        fetch(`${window.location.origin}/project/${projectId}/planning/insert-backlog-to-sprint`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "backlogId": draggedItem.dataset.backlogid,
+                "sprintId": event.currentTarget.dataset.sprintid
+            })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+            if (data.status === `error`) {
+                alert(data.errors)
+                console.log(data)
+                return
+            }
+            location.reload()
+            })
+            .catch((error) => {
+            console.log(error);
+            });
+    }
+    // Akhir kode untuk draggable
+    
+    function changeTab(event, index) {
+        var tabButtons2 = document.getElementById('tab-buttons2').children;
+        var tabPanels2 = document.getElementById('tab-panels2').children;
+
+        // Remove the active utility classes from all tabs (bg-white, text-blue-600)
+        // And hide all tab content (with the "hidden" utility)
+        for (var i = 0; i < tabButtons2.length; i++) {
+            tabButtons2[i].classList.remove('border-2');
+            tabPanels2[i].classList.add('hidden');
+        }
+
+        // Add the active utility classes to the currently active tab (bg-white, text-blue-600)
+        // And show the current tab content (remove the "hidden" utility)
+        tabButtons2[index].classList.remove('text-white');
+        tabButtons2[index].getElementsByTagName('hr').remove;
+        tabPanels2[index].classList.remove('hidden');
+    }
+</script>
