@@ -31,6 +31,8 @@ router.get("/", ensureAuthenticated, async (req, res) => {
       backlogs,
       sprints,
       rolesAndHolder,
+      page: "Project",
+      subPage: "Planning",
       user: req.user,
       title: project.projectName,
       layout: "layout/main-layout",
@@ -151,4 +153,13 @@ router.post(
     }
   }
 );
+
+router.post("/schedule-sprint", async (req, res) => {
+  try {
+    const scheduledSprint = await Sprint.findByIdAndUpdate(req.body.sprintId, { startDate: req.body.startDate, finishDate: req.body.finishDate });
+    res.send({ status: "success", data: scheduledSprint });
+  } catch (err) {
+    res.send({ status: "error", data: err.message });
+  }
+});
 module.exports = router;

@@ -23,12 +23,12 @@
     </div>
     <ul class="flex flex-col pt-5 items-center space-y-3">
       <li class="flex w-full pl-5">
-        <a class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black" href="/dashboard">
+        <a class="flex rounded-s-3xl h-12 <%= page == "Overview" ? "bg-white text-black" : "text-white"%>  font-normal w-full hover:bg-white hover:text-black" href="/dashboard">
           <h1 class="text-xs ml-10 my-auto">Overview</h1>
         </a>
       </li>
       <li class="flex w-full pl-5">
-        <a class="flex rounded-s-3xl h-12 text-white font-normal w-full hover:bg-white hover:text-black" href="/project/dashboard">
+        <a class="flex rounded-s-3xl h-12 <%= page == "Project" ? "bg-white text-black" : "text-white"%> font-normal w-full hover:bg-white hover:text-black" href="/project/dashboard">
           <h1 class="text-xs ml-10 my-auto">Project</h1>
         </a>
       </li>

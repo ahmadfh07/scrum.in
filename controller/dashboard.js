@@ -5,7 +5,8 @@ const { ensureAuthenticated } = require("../utils/auth");
 router.get("/", ensureAuthenticated, (req, res) => {
   res.render("dashboard", {
     user: req.user,
-    title: "Dashboard",
+    title: "Overview",
+    page: "Overview",
     layout: "layout/main-layout",
   });
 });

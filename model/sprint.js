@@ -6,10 +6,11 @@ const SprintSchema = new mongoose.Schema({
   },
   startDate: {
     type: Date,
-    default: Date.now,
+    default: "",
   },
   finishDate: {
     type: Date,
+    default: "",
   },
   date: {
     type: Date,

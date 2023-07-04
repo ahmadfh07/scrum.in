@@ -37,13 +37,11 @@
   <!-- Tab Buttons -->
   <div id="tab-buttons" class="flex ml-12 bg-[#DEE5D4]">
     <a href="/project/<%= project.projectId %>/overview" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Overview
-      <hr class="border mt-2 rounded-lg">
     </a>
     <a href="/project/<%= project.projectId %>/planning" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Planning
       <hr class="border mt-2 rounded-lg">
     </a>
-    <a href="javascript:void(0)" onclick="changeTab(event, 2)" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Timeline
-      <hr class="border mt-2 rounded-lg">
+    <a href="/project/<%= project.projectId %>/timeline" class="inline-block px-5 py-3 text-xs  text-black divide-y-4">Timeline
     </a>
   </div>
 
@@ -254,10 +252,6 @@
       </div>
     </div>
   </div>
-    </div>
-
-    <div class="hidden">
-      <%- include('component/project-timeline'); %>
     </div>
   </div>
 

@@ -18,6 +18,7 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
     title: "Project dashboard",
     layout: "layout/main-layout",
     projects,
+    page: "Project",
   });
 });
 
@@ -99,6 +100,8 @@ router.get("/:id/overview", ensureAuthenticated, async (req, res) => {
       backlogs,
       sprints,
       rolesAndHolder,
+      page: "Project",
+      subPage: "Overview",
       user: req.user,
       title: project.projectName,
       layout: "layout/main-layout",
@@ -170,6 +173,15 @@ router.use(
     next();
   },
   require("../controller/project-planning")
+);
+
+router.use(
+  "/:id/timeline",
+  (req, res, next) => {
+    req.projectId = req.params.id;
+    next();
+  },
+  require("../controller/project-timeline")
 );
 
 module.exports = router;
