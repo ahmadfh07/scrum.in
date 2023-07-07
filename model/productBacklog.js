@@ -27,6 +27,10 @@ const BacklogSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  backlogStatus: {
+    type: String,
+    default: "To Do",
+  },
   assignedTo: [
     {
       username: String,

@@ -47,4 +47,14 @@ router.post("/planning-backlog", async (req, res) => {
   }
 });
 
+router.post("/insert-backlog-to-kanban-topic", async (req, res) => {
+  try {
+    const updatedBacklog = await Backlog.findByIdAndUpdate(req.body.backlogId, { backlogStatus: !req.body.backlogStatus ? "To DO" : req.body.backlogStatus });
+    console.log(req.body.backlogStatus);
+    console.log(updatedBacklog);
+  } catch (err) {
+    console.log(err.message);
+    res.send({ status: "error", data: err.message });
+  }
+});
 module.exports = router;

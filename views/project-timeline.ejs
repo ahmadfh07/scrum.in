@@ -73,9 +73,10 @@
 
               <div class="rounded-lg">
                 <!-- List backlog -->
-                <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="flex flex-col p-3" id="backlogsCotainer" data-topic="To Do" ondrop="drop(event)" ondragover="allowDrop(event)">
                   <% backlogs.forEach(e => { %>
-                  <div class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
+                  <% if (e.backlogStatus == "To Do") { %>
+                  <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
                     <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
                       <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
@@ -83,6 +84,7 @@
                       </div>
                     </div>
                   </div>
+                  <% } %>
                   <% }) %>
                 </div>
               </div>
@@ -96,8 +98,19 @@
 
               <div class="rounded-lg">
                 <!-- List backlog -->
-                <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
-
+                <div class="flex flex-col p-3" id="backlogsCotainer" data-topic="Doing" ondrop="drop(event)" ondragover="allowDrop(event)">
+                  <% backlogs.forEach(e => { %>
+                  <% if (e.backlogStatus == "Doing") { %>
+                  <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
+                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
+                    <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                      <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% }) %>
                 </div>
               </div>
             </div>
@@ -110,7 +123,19 @@
 
               <div class="rounded-lg">
                 <!-- List backlog -->
-                <div class="flex flex-col p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="flex flex-col p-3" id="backlogsCotainer" data-topic="Done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                  <% backlogs.forEach(e => { %>
+                  <% if (e.backlogStatus == "Done") { %>
+                  <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
+                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
+                    <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                      <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
+                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% }) %>
                 </div>
               </div>
             </div>
@@ -232,28 +257,28 @@
     const destinationElement = document.getElementById(destinationId);
     event.currentTarget.appendChild(draggedItem);
     console.log(event.currentTarget.dataset.sprintid, draggedItem.dataset.backlogid)
-    //     fetch(`${window.location.origin}/project/${projectId}/planning/insert-backlog-to-sprint`, {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //           "backlogId": draggedItem.dataset.backlogid,
-    //           "sprintId": event.currentTarget.dataset.sprintid
-    //         })
-    //       })
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         if (data.status === `error`) {
-    //           alert(data.errors)
-    //           console.log(data)
-    //           return
-    //         }
-    //         location.reload()
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
+    fetch(`${window.location.origin}/project/${projectId}/timeline/insert-backlog-to-kanban-topic`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "backlogId": draggedItem.dataset.backlogid,
+          "backlogStatus": event.currentTarget.dataset.topic
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          alert(data.errors)
+          console.log(data)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   // Akhir kode untuk draggable
 
