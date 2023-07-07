@@ -27,8 +27,158 @@
   </div>
 </div>
 
-<h3 class="text-2xl">You dont have any project</h3>
+<div class="flex flex-col bg-[#DEE5D4] w-full">
+  <!-- Tulisan Overview -->
+  <div class="flex h-16">
+      <h1 class="pt-4 pl-7 text-xl font-semibold">Overview</h1>
+  </div>
+
+  <!-- Bagian Card Project & Todo Task -->
+  <div class="flex flex-row h-48 pl-10">
+      <!-- Card 1 -->
+      <div class="flex flex-col w-72 h-180px bg-white rounded-2xl p-3 shadow-2xl">
+          <div class="flex flex-row my-2">
+              <!-- <div class="flex w-1/6">
+                  <img class="w-7 h-7 m-auto" src="/public/assets/logo_scrumin_nt.png" alt="">
+              </div> -->
+              <div class="flex rounded-full w-7 h-7 bg-slate-500">
+                  <h1 class="flex text-6 text-white m-auto">S</h1>
+              </div>
+              <div class="flex w-5/6 items-center ml-2">
+                  <h1 class="text-sm font-semibold">Scrum.In</h1>
+              </div>
+          </div>
+          <!-- description -->
+          <div class="my-2 h-12">
+              <p class="text-[8px] px-2 font-bold">Scrum.in dibuat untuk mendukung aktivitas scrum dalam kerangka kerja scrum dengan membuat apa pun mulai dari product backlog hingga increment tersedia secara virtual dan tertata rapi sesuai dengan kerangka kerja scrum.</p>
+          </div>
+          <!-- Progress Bar -->
+          <!-- <div class="my-2 px-2 w-full">                       
+              <div class="flex justify-between mb-1">
+                  <span class="text-[8px] font-bold text-black">Progress</span>
+                  <span class="text-[8px] font-bold text-black">10%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-200">
+                  <div class="bg-black h-1 rounded-full" style="width: 10%"></div>
+              </div>
+          </div> -->
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flex flex-col w-72 h-180px bg-white rounded-2xl p-3 ml-10 shadow-2xl">
+          <div class="flex flex-row my-2">
+              <!-- <div class="flex w-1/6">
+                  <img class="w-7 h-7 m-auto" src="/public/assets/logo_scrumin_nt.png" alt="">
+              </div> -->
+              <div class="flex rounded-full w-7 h-7 bg-slate-500">
+                  <h1 class="flex text-6 text-white m-auto">L</h1>
+              </div>
+              <div class="flex w-5/6 items-center ml-2">
+                  <h1 class="text-sm font-semibold">Land In Page</h1>
+              </div>
+          </div>
+          <!-- description -->
+          <div class="my-2 h-12">
+              <p class="text-[8px] px-2 font-bold">Short Description goes here, where the system take your description about the project that you input before</p>
+          </div>
+          <!-- Progress Bar -->
+          <!-- <div class="my-2 px-2 w-full">                       
+              <div class="flex justify-between mb-1">
+                  <span class="text-[8px] font-bold text-black">Progress</span>
+                  <span class="text-[8px] font-bold text-black">50%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-200">
+                  <div class="bg-black h-1 rounded-full" style="width: 50%"></div>
+              </div>
+          </div> -->
+      </div>
+
+      <!-- Todo -->
+      <div class="flex flex-row ml-10">
+          <div class="flex flex-col w-[117px] h-[65px] bg-white rounded-xl pt-2 mr-6">
+              <h1 class="flex text-[10px] font-bold justify-center">Todo Task</h1>
+              <h1 class="flex text-[20px] justify-center">2</h1>
+          </div>
+          <div class="flex flex-col w-[117px] h-[65px] bg-white rounded-xl pt-2 mr-6">
+              <h1 class="flex text-[10px] font-bold justify-center">Todo Task</h1>
+              <h1 class="flex text-[20px] justify-center">2</h1>
+          </div>
+          <div class="flex flex-col w-[117px] h-[65px] bg-white rounded-xl pt-2 mr-6">
+              <h1 class="flex text-[10px] font-bold justify-center">Todo Task</h1>
+              <h1 class="flex text-[20px] justify-center">2</h1>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Tulisan Recent Task -->
+  <div class="flex h-16 mt-2">
+      <h1 class="pt-4 pl-7 text-sm font-semibold">Recent Task</h1>
+  </div>
+
+  <!-- Tabel Recent Task -->
+  <div class="pl-10">
+      <table class="table-auto text-center w-[1045px] text-black">
+          <thead class="text-[10px] font-bold">
+              <tr class="h-8">
+                  <th scope="col" class="text-left">Task Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col">Project Name</th>
+              </tr>
+          </thead>
+          <tbody class="text-[10px]">
+              <tr class="h-8">
+                  <td class="text-left">Wireframing Dashboard Page</td>
+                  <td>
+                      <div id="targetWarna" class="h-[22px] w-[50px] bg-green-400 m-auto">
+                          <h1 id="statusProject" class="m-auto">Complete</h1>
+                      </div>
+                  </td>
+                  <td>High</td>
+                  <td>2 May 2023</td>
+                  <td>Scrum.in</td>
+              </tr>
+              <tr class="h-8">
+                  <td class="text-left">High Fidelity UI</td>
+                  <td>
+                      <div id="targetWarna" class="">
+                          <h1 id="statusProject" class="m-auto">On Going</h1>
+                      </div>
+                  </td>
+                  <td>Medium</td>
+                  <td>10 May 2023</td>
+                  <td>Scrum.in</td>
+              </tr>
+              <tr class="h-8">
+                  <td class="text-left">High Fidelity UI</td>
+                  <td>
+                      <div id="targetWarna" class="">
+                          <h1 id="statusProject" class="m-auto">On Going</h1>
+                      </div>
+                  </td>
+                  <td>Medium</td>
+                  <td>10 May 2023</td>
+                  <td>Scrum.in</td>
+              </tr>
+              <tr class="h-8">
+                  <td class="text-left">Connect UI/UX to code using Figma Plugin</td>
+                  <td>
+                      <div id="targetWarna" class="">
+                          <h1 id="statusProject" class="m-auto">Todo</h1>
+                      </div>
+                  </td>
+                  <td>Low</td>
+                  <td>20 May 2023</td>
+                  <td>Land In Page</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<!-- <h3 class="text-2xl">You dont have any project</h3>
 <div id="dialog" class="flex items-center justify-between p-5 w-1/4">
   <a href="/project/join-existing" class="p-1 rounded-sm bg-blue-500 text-slate-200">Join Existing Project</a>
   <a href="/project/create-new" class="bg-slate-500 p-1 text-slate-100 rounded-sm">Create a New One</a>
-</div>
+</div> -->
