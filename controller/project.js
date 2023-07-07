@@ -141,6 +141,54 @@ router.get("/:id/join", ensureAuthenticated, async (req, res) => {
 });
 
 router.post(
+  "/:id/update-project",
+  [
+    check("projectName", "Project name already been used").custom(async (value, { req, location, path }) => {
+      const dupe = await Project.findOne({ projectName: value });
+      const oldProject = await Project.findOne({ projectId: req.params.id });
+      if (dupe && value != oldProject.projectName) {
+        throw new Error("Project name already been used");
+      }
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req).mapped();
+    if (Object.keys(errors).length !== 0) {
+      res.send({ status: `error`, errors });
+    } else {
+      const uuidProject = new ShortUniqueId();
+      let projectId = uuidProject();
+      const project = await Project.findOneAndUpdate(
+        { projectId: req.params.id },
+        {
+          projectName: req.body.projectName,
+          projectDesc: req.body.projectDesc,
+        }
+      );
+      req.body.rolesNeeded.forEach(async (value, index) => {
+        let roleId = uuidRole();
+        const role = await Role.findOneAndUpdate(
+          { roleId: value.roleId },
+          {
+            projectId: req.params.id,
+            roleId: value.roleId,
+            roleName: value.inputValue,
+          }
+        );
+        if (!role) {
+          const newRole = await Role.insertMany({
+            projectId: req.params.id,
+            roleId,
+            roleName: value.inputValue,
+          });
+        }
+      });
+      res.send({ status: `success`, project });
+    }
+  }
+);
+
+router.post(
   "/:id/create-role",
   [
     body("roleName").custom(async (value, { req, location, path }) => {

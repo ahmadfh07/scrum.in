@@ -1,5 +1,6 @@
 <!-- Bagian yang mirip Navbar -->
 <div class="flex flex-row w-full h-14 pt-3">
+  <span id="projectId" class="hidden"><%= project.projectId %></span>
   <!-- Kiri -->
   <div class="flex flex-row w-4/5">
     <h1 class="pl-5 pt-2 text-xs font-medium">Dashboard</h1>
@@ -74,18 +75,20 @@
             <div class="flex flex-col items-center w-10/12 mx-auto mb-8">
               <div class="w-full text-left">
                 <label class="text-sm" for="name">Project Name</label>
-                <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="projectName" name="name" />
+                <input class="w-full border-2 px-2 py-1.5 rounded-md mt-2" type="text" id="projectName" name="name" value="<%= project.projectName %>" />
               </div>
               <div class="w-full text-left mt-2">
                 <label class="text-sm" for="ket">Description</label><br />
-                <textarea class="w-full text-sm border-2 px-2 py-1.5 rounded-md mt-2 h-20" type="text" id="projectDesc" name="ket"></textarea>
+                <textarea class="w-full text-sm border-2 px-2 py-1.5 rounded-md mt-2 h-20" type="text" id="projectDesc" name="ket"><%= project.projectDesc %></textarea>
               </div>
               <div class="flex gap-x-2 w-full text-left mt-2">
                 <div class="w-10/12" id="role-container">
                   <label class="text-sm" for="tiga">Role Name</label>
                   <div class="flex flex-row">
                     <div class="flex flex-col w-44">
-                      <input id="rolesInput" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="">
+                      <% roles.forEach(e => { %>
+                      <input id="rolesInput" data-rolesId="<%= e.roleId %>" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="" value="<%= e.roleName %>">
+                      <% }) %>
                     </div>
                     <button class="flex">
                       <h1 onclick="nambahRole()" class="p-3 rounded-md border-2">
@@ -98,7 +101,7 @@
                 </div>
               </div>
               <div class="flex gap-x-3 self-start mt-4">
-                <button id="btnCreateProject" type="submit" class="bg-black text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Create</button>
+                <button id="btnEditProject" data-projectId="<%= project.projectId %>" type="submit" class="bg-black text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button>
               </div>
             </div>
           </div>
@@ -173,7 +176,7 @@
   //JS untuk add role
   function nambahRole() {
     const roleContainer = document.getElementById("role-container");
-    let html = '<input id="rolesInput" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="">';
+    let html = '<input id="rolesInput" data-rolesId="tttt" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="">';
     roleContainer.insertAdjacentHTML("beforeend", html);
   }
 
@@ -199,4 +202,49 @@
     // tabButtons[index].classList.add('bg-white');
     tabPanels[index].classList.remove('hidden');
   }
+
+  // js edit project
+  const btnEditProject = document.querySelector("#btnEditProject")
+  const projectId = document.querySelector("#projectId").innerHTML
+  console.log(projectId)
+  btnEditProject.addEventListener("click", (e) => {
+    const projectName = document.querySelector("#projectName").value
+    const projectDesc = document.querySelector("#projectDesc").value
+    const rolesInput = document.querySelectorAll("#rolesInput")
+    let rolesNeeded = []
+    rolesInput.forEach((v) => {
+      rolesNeeded.push({
+        inputValue: v.value,
+        roleId: v.dataset.rolesid
+      })
+    })
+    console.log(projectName)
+    console.log(projectDesc)
+    console.log(rolesNeeded)
+    fetch(`${window.location.origin}/project/${projectId}/update-project`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "projectName": projectName,
+          "projectDesc": projectDesc,
+          "rolesNeeded": rolesNeeded
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === `error`) {
+          console.log(data)
+          alert(data.errors?.projectName.msg)
+          return
+        }
+        location.reload()
+      })
+      .catch((error) => {
+        alert(error.message)
+        console.log(error);
+      });
+
+  })
 </script>
