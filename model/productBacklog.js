@@ -27,6 +27,12 @@ const BacklogSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  assignedTo: [
+    {
+      username: String,
+      email: String,
+    },
+  ],
 });
 const productBacklog = mongoose.model("productBacklog", BacklogSchema);
 
