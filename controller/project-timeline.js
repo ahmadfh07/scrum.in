@@ -57,4 +57,13 @@ router.post("/insert-backlog-to-kanban-topic", async (req, res) => {
     res.send({ status: "error", data: err.message });
   }
 });
+
+router.get("/get-comments",async(req,res)=>{
+  try{
+    const backlogComments = await Comment.find({backlogId:req.query.backlogId})
+    res.send({status : "success", data : backlogComments})
+  }catch(err){
+    res.send({status : "error", data : err.message})
+  }
+})
 module.exports = router;

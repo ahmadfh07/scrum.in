@@ -171,9 +171,9 @@
               <input class="flex rounded-lg hover:border-black border-2" type="text" name="" id="backlogComment">
             </div>
             <!-- List Comment -->
-            <div class="flex flex-col gap-2 p-2 mt-3 border-2 w-full h-40 overflow-scroll rounded-lg">
+            <div id="commentsContainer" class="flex flex-col gap-2 p-2 mt-3 border-2 w-full h-40 overflow-scroll rounded-lg">
               <% comments.forEach(e => { %>
-              <% if (e.sprintId == backlogs[0].sprintId) { %>
+              <% if (e.backlogId == backlogs[0]._id) { %>
               <div class="flex flex-col gap-1">
                 <div class=" flex flex-row gap-1">
                   <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
@@ -289,6 +289,7 @@
   const btnSaveBacklogUpdate = document.querySelector("#btnSaveBacklogUpdate")
   const projectId = document.querySelector("#projectId").innerHTML
   const backlogComment = document.querySelector("#backlogComment")
+  const commentsContainer = document.querySelector("#commentsContainer")
 
   eventBubbler.addEventListener("click", (e) => {
     if (e.srcElement.classList.contains('backlog-item')) {
@@ -307,12 +308,13 @@
             storyPoint,
             sprintId
           } = data.data
-          console.log(_id)
           BacklogName.innerHTML = backlogName
           DefinitionOfDone.innerHTML = definitionOfDone
           StoryPoint.value = storyPoint
           btnSaveBacklogUpdate.setAttribute("data-backlogid", _id)
           btnSaveBacklogUpdate.setAttribute("data-sprintid", sprintId)
+          commentsContainer.innerHTML = getBacklogComments(e.srcElement.dataset.backlogid)
+          console.log(getBacklogComments(e.srcElement.dataset.backlogid))
         })
         .catch((error) => {
           console.log(error);
@@ -320,6 +322,7 @@
     }
   })
   console.log("tes")
+
   btnSaveBacklogUpdate.addEventListener("click", (e) => {
     fetch(`${window.location.origin}/project/${projectId}/timeline/planning-backlog?id=${e.srcElement.dataset.backlogid}`, {
         method: "POST",
@@ -347,4 +350,34 @@
       });
 
   })
+
+  function getBacklogComments(backlogId){
+    fetch(`${window.location.origin}/project/${projectId}/timeline/get-comments?backlogId=${backlogId}`, {})
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === `error`) {
+            alert(data)
+            console.log(data)
+            return
+          }
+          let comments = []
+          data.data.forEach(e => {
+            comments.push(`<div class="flex flex-col gap-1">
+                <div class=" flex flex-row gap-1">
+                  <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
+                    <h1 class="flex text-[10px] text-white m-auto">${e.commenter[0].toUpperCase()}</h1>
+                  </div>
+                  <h1 class="flex text-[10px]">${e.commenter}</h1>
+                </div>
+                <p class="flex text-[10px] text-justify">${e.comment}</p>
+              </div>`)
+          });
+          console.log(comments)
+          return comments 
+        })
+        .catch((error) => {
+          alert(err.message)
+          console.log(error);
+        });
+  }
 </script>
