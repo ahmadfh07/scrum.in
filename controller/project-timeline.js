@@ -38,9 +38,11 @@ router.get("/", async (req, res) => {
 
 router.post("/planning-backlog", async (req, res) => {
   try {
-    const plannedBacklog = await Backlog.findByIdAndUpdate(req.query.id, { assignedTo: "" });
-    const comment = await Comment.insertMany({ projectId: req.projectId, sprintId: req.body.sprintId, backlogId: req.body.backlogId, commenter: req.user.username, comment: req.body.comment });
-    res.send({ status: "success", data: { plannedBacklog, comment } });
+    const plannedBacklog = await Backlog.findByIdAndUpdate(req.query.id, { assignedTo: req.body.assignedTo });
+    if (!!req.body.comment) {
+      const comment = await Comment.insertMany({ projectId: req.projectId, sprintId: req.body.sprintId, backlogId: req.body.backlogId, commenter: req.user.username, comment: req.body.comment });
+    }
+    res.send({ status: "success", data: { plannedBacklog } });
   } catch (err) {
     console.log(err);
     res.send({ status: "error", data: err.message });
@@ -58,12 +60,12 @@ router.post("/insert-backlog-to-kanban-topic", async (req, res) => {
   }
 });
 
-router.get("/get-comments",async(req,res)=>{
-  try{
-    const backlogComments = await Comment.find({backlogId:req.query.backlogId})
-    res.send({status : "success", data : backlogComments})
-  }catch(err){
-    res.send({status : "error", data : err.message})
+router.get("/get-comments", async (req, res) => {
+  try {
+    const backlogComments = await Comment.find({ backlogId: req.query.backlogId });
+    res.send({ status: "success", data: backlogComments });
+  } catch (err) {
+    res.send({ status: "error", data: err.message });
   }
-})
+});
 module.exports = router;

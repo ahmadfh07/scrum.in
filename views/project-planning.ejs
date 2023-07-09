@@ -120,7 +120,7 @@
             <div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 pr-4">
               <div class="flex flex-row w-full justify-between mt-2">
                 <h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">Sprint <%= index + 1 %></h1>
-                <button data-sprintId="<%= sprint._id %>" class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold"> Start Sprint
+                <button data-sprintId="<%= sprint._id %>" data-startDate="<%= sprint.startDate?.toISOString().split('T')[0] %>" data-finishDate="<%= sprint.finishDate?.toISOString().split('T')[0] %>" class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold"> Start Sprint
                 </button>
               </div>
               <div id="sprintBacklogContainer" data-sprintId="<%= sprint._id %>" class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -278,6 +278,8 @@
       sprintModal.classList.remove('opacity-0', 'pointer-events-none');
       sprintModal.classList.add('opacity-100');
       btnScheduleSprint.setAttribute("data-sprintid",e.srcElement.dataset.sprintid)
+      inputStartSprint.setAttribute("value",e.srcElement.dataset.startdate)
+      inputEndSprint.setAttribute("value",e.srcElement.dataset.finishdate) 
     }
   })
 

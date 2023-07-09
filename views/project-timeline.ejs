@@ -79,9 +79,15 @@
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
                     <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                      <% e.assignedTo?.forEach(e => { %>
+                      <% if (e == '') { %>
+
+                      <% }else{ %>
                       <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
-                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                        <h1 class="flex text-[7px] text-white m-auto"><%= e.username[0].toUpperCase()%></h1>
                       </div>
+                      <% } %>
+                      <% }) %>
                     </div>
                   </div>
                   <% } %>
@@ -104,9 +110,15 @@
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
                     <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                      <% e.assignedTo?.forEach(e => { %>
+                      <% if (e == '') { %>
+
+                      <% }else{ %>
                       <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
-                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                        <h1 class="flex text-[7px] text-white m-auto"><%= e.username[0].toUpperCase()%></h1>
                       </div>
+                      <% } %>
+                      <% }) %>
                     </div>
                   </div>
                   <% } %>
@@ -129,9 +141,15 @@
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
                     <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
+                      <% e.assignedTo?.forEach(e => { %>
+                      <% if (e == '') { %>
+
+                      <% }else{ %>
                       <div class="flex rounded-full w-[10px] h-[10px] bg-slate-500">
-                        <h1 class="flex text-[7px] text-white m-auto">C</h1>
+                        <h1 class="flex text-[7px] text-white m-auto"><%= e.username[0].toUpperCase()%></h1>
                       </div>
+                      <% } %>
+                      <% }) %>
                     </div>
                   </div>
                   <% } %>
@@ -147,9 +165,17 @@
             <div class="flex flex-col mt-3 gap-1">
               <h1 class="text-[10px]">Assigned</h1>
               <div class="flex flex-row gap-1">
-                <!-- <div class="flex rounded-full w-5 h-5 bg-slate-500">
-                  <h1 class="flex text-sm text-white m-auto">C</h1>
-                </div> -->
+                <div id="assignedContainer" class="flex flex-row gap-1">
+                  <% backlogs[0].assignedTo.forEach(e => { %>
+                  <% if (e == '') { %>
+
+                  <% }else{ %>
+                  <div id="<%= e.username %>" class="flex rounded-full w-5 h-5 bg-slate-500" data-username="<%= e.username %>" data-email="<%= e.email %>">
+                    <h1 class="flex text-sm text-white m-auto"><%= e.username[0].toUpperCase() %></h1>
+                  </div>
+                  <% } %>
+                  <% }) %>
+                </div>
                 <div class="member-modal-open flex rounded-full w-5 h-5 border-2 border-dashed border-slate-500 hover:cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" fill="currentColor" class="bi bi-person-plus m-auto" viewBox="0 0 16 16">
                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
@@ -206,23 +232,24 @@
       </div>
     </div>
     <h1 class="font-semibold text-[8px] text-center mb-2">Project Member</h1>
-    <div class="flex flex-col items-center w-10/12 mx-auto mb-3 gap-1">
+    <div id="membersContainer" class="flex flex-col items-center w-10/12 mx-auto mb-3 gap-1">
       <% rolesAndHolder.forEach(e => { %>
       <% if (e.roleName != "Scrum Master") { %>
       <div class="flex flex-row hover:bg-slate-100 hover:cursor-pointer w-full gap-1">
         <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
-          <h1 class="flex text-[10px] text-white m-auto"><%= e.holders.username[0].toUpperCase() %></h1>
+          <h1 class=" flex text-[10px] text-white m-auto"><%= e.holders.username[0].toUpperCase() %></h1>
         </div>
-        <h1 class="flex text-[8px] my-auto"><%= e.holders.username %></h1>
+        <h1 class="member-name flex text-[8px] my-auto" data-username="<%= e.holders.username %>" data-email="<%= e.holders.email %>"><%= e.holders.username %></h1>
       </div>
       <% } %>
       <% }) %>
     </div>
   </div>
-</div>
+</div>=
 
 <script>
   // JS untuk buka tutup pop-up
+  console.log(document.querySelectorAll("#backlogItem"))
   const modal = document.querySelector('.member-modal');
   const modalOpen = document.querySelector('.member-modal-open');
   const modalClose = document.querySelector('.member-modal-close');
@@ -306,13 +333,25 @@
             backlogName,
             definitionOfDone,
             storyPoint,
-            sprintId
+            sprintId,
+            assignedTo,
           } = data.data
           BacklogName.innerHTML = backlogName
           DefinitionOfDone.innerHTML = definitionOfDone
           StoryPoint.value = storyPoint
           btnSaveBacklogUpdate.setAttribute("data-backlogid", _id)
           btnSaveBacklogUpdate.setAttribute("data-sprintid", sprintId)
+          let assignedMembers = ''
+          assignedTo.forEach(e => {
+            if (e == '') {
+
+            } else {
+              assignedMembers += `<div id="${e.username}" class="flex rounded-full w-5 h-5 bg-slate-500" data-username="${e.username}" data-email="${e.email}">
+                    <h1 class="flex text-sm text-white m-auto">${e.username[0].toUpperCase()}</h1>
+                  </div>`
+            }
+          })
+          assignedContainer.innerHTML = assignedMembers
         })
         .catch((error) => {
           console.log(error);
@@ -326,7 +365,7 @@
             console.log(data)
             return
           }
-          let comments = ``
+          let comments = ''
           data.data.forEach(e => {
             comments += `<div class="flex flex-col gap-1">
                 <div class=" flex flex-row gap-1">
@@ -346,9 +385,16 @@
         });
     }
   })
-  console.log("tes")
 
   btnSaveBacklogUpdate.addEventListener("click", (e) => {
+    let membersAssignedCreds = []
+    const memberAssigned = document.querySelectorAll("#assignedContainer > *")
+    memberAssigned.forEach(e => {
+      membersAssignedCreds.push({
+        username: e.dataset.username,
+        email: e.dataset.email
+      })
+    })
     fetch(`${window.location.origin}/project/${projectId}/timeline/planning-backlog?id=${e.srcElement.dataset.backlogid}`, {
         method: "POST",
         headers: {
@@ -357,7 +403,8 @@
         body: JSON.stringify({
           "backlogId": e.srcElement.dataset.backlogid,
           "sprintId": e.srcElement.dataset.sprintid,
-          "comment": backlogComment.value
+          "comment": backlogComment.value,
+          "assignedTo": membersAssignedCreds
         })
       })
       .then((response) => response.json())
@@ -374,5 +421,20 @@
         console.log(error);
       });
 
+  })
+
+  // js untuk tambh kurang assigned member
+  const membersContainer = document.querySelector("#membersContainer")
+  const assignedContainer = document.querySelector("#assignedContainer")
+  membersContainer.addEventListener("click", (e) => {
+    if (e.srcElement.classList.contains("member-name")) {
+      if (document.querySelector(`#${e.srcElement.dataset.username}`) == null) {
+        assignedContainer.insertAdjacentHTML("afterbegin", `<div id="${e.srcElement.dataset.username}" class="flex rounded-full w-5 h-5 bg-slate-500" data-username="${e.srcElement.dataset.username}" data-email="${e.srcElement.dataset.email}">
+                  <h1 class="flex text-sm text-white m-auto">${e.srcElement.dataset.username[0].toUpperCase()}</h1>
+                </div>`)
+      } else {
+        document.querySelector(`#${e.srcElement.dataset.username}`).remove()
+      }
+    }
   })
 </script>

@@ -17,7 +17,6 @@ const CommentSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: true,
   },
 });
 const commentBacklog = mongoose.model("commentBacklog", CommentSchema);
