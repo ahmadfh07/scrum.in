@@ -4,6 +4,11 @@ const SprintSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sprintGoal: {
+    type: String,
+    required: true,
+    default: "",
+  },
   startDate: {
     type: Date,
     default: "",

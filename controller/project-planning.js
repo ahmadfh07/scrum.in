@@ -156,7 +156,7 @@ router.post(
 
 router.post("/schedule-sprint", async (req, res) => {
   try {
-    const scheduledSprint = await Sprint.findByIdAndUpdate(req.body.sprintId, { startDate: req.body.startDate, finishDate: req.body.finishDate });
+    const scheduledSprint = await Sprint.findByIdAndUpdate(req.body.sprintId, { startDate: req.body.startDate, finishDate: req.body.finishDate, sprintGoal: req.body.sprintGoal });
     res.send({ status: "success", data: scheduledSprint });
     console.log({ status: "success", data: scheduledSprint });
     console.log(req.body.sprintId);

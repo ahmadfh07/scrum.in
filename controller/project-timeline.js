@@ -14,26 +14,43 @@ router.get("/", async (req, res) => {
     d.setDate(d.getDate());
     return d.toISOString();
   }
+  let userRole;
   const project = await Project.findOne({ projectId: req.projectId });
   const roles = await Role.find({ projectId: req.projectId });
   const aggregate = Role.aggregate();
   const rolesAndHolder = await aggregate.unwind("$holders").match({ projectId: req.projectId });
   const comments = await Comment.find({ projectId: req.projectId });
-  const targetSprint = await Sprint.find({ startDate: { $lte: today() }, finishDate: { $gte: today() } }).select("_id");
-  const targetSprintValue = targetSprint[0]._id.toHexString();
+  const targetSprint = await Sprint.findOne({ startDate: { $lte: today() }, finishDate: { $gte: today() }, projectId: req.projectId }).select("_id");
+  const targetSprintValue = targetSprint?._id.toHexString();
   const backlogs = await Backlog.find({ sprintId: targetSprintValue });
-  res.render("project-timeline", {
-    project,
-    roles,
-    backlogs,
-    comments,
-    rolesAndHolder,
-    page: "Project",
-    subPage: "Timeline",
-    user: req.user,
-    title: project.projectName,
-    layout: "layout/main-layout",
-  });
+  if (project) {
+    if (req.user.username === project.productOwner) {
+      userRole = "product owner";
+    } else {
+      const targetRole = await Role.find({ projectId: req.projectId }).elemMatch("holders", { username: req.user.username });
+      userRole = targetRole.length == 0 ? "intruder" : targetRole[0]?.roleName;
+    }
+    res.render("project-timeline", {
+      project,
+      targetSprint,
+      roles,
+      backlogs,
+      comments,
+      rolesAndHolder,
+      userRole,
+      page: "Project",
+      subPage: "Timeline",
+      user: req.user,
+      title: project.projectName,
+      layout: "layout/main-layout",
+    });
+  } else {
+    res.status(404);
+    res.render("404", {
+      title: "404",
+      layout: "layout/signin-signout",
+    });
+  }
 });
 
 router.post("/planning-backlog", async (req, res) => {
