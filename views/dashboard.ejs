@@ -50,7 +50,7 @@
       </div>
       <!-- description -->
       <div class="my-2 h-12">
-        <p class="text-[8px] px-2 font-bold">
+        <p class="text-[10px] text-justify px-2 font-medium">
           <%= projects[0].projectDesc %>
         </p>
       </div>
@@ -81,7 +81,7 @@
       </div>
       <!-- description -->
       <div class="my-2 h-12">
-        <p class="text-[8px] px-2 font-bold"><%= projects[1].projectDesc %></p>
+        <p class="text-[10px] text-justify px-2 font-medium"><%= projects[1].projectDesc %></p>
       </div>
       <!-- Progress Bar -->
       <!-- <div class="my-2 px-2 w-full">                       
@@ -120,7 +120,7 @@
   <!-- Tabel Recent Task -->
   <div class="pl-10">
     <table class="table-auto text-center w-[1045px] text-black">
-      <thead class="text-[10px] font-bold">
+      <thead class="text-xs font-bold">
         <tr class="h-8">
           <th scope="col" class="text-left">Task Name</th>
           <th scope="col">Status</th>
@@ -129,7 +129,7 @@
           <th scope="col">Project Id</th>
         </tr>
       </thead>
-      <tbody class="text-[10px]">
+      <tbody class="text-[11px]">
         <% tasks.forEach(e => { %>
         <tr class="h-8">
           <td class="text-left"><%= e.backlogName %></td>
@@ -142,7 +142,7 @@
           <td><%= e.definitionOfDone %></td>
           <td><%= e.projectId %></td>
         </tr>
-        <% }) %>
+        <% })                  <td class="text-left">
       </tbody>
     </table>
   </div>

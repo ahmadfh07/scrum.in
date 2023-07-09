@@ -77,7 +77,7 @@
                   <% backlogs.forEach(e => { %>
                   <% if (e.backlogStatus == "To Do") { %>
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
-                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
+                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[9px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
                       <% e.assignedTo?.forEach(e => { %>
                       <% if (e == '') { %>
@@ -108,7 +108,7 @@
                   <% backlogs.forEach(e => { %>
                   <% if (e.backlogStatus == "Doing") { %>
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
-                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
+                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[9px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
                       <% e.assignedTo?.forEach(e => { %>
                       <% if (e == '') { %>
@@ -139,7 +139,7 @@
                   <% backlogs.forEach(e => { %>
                   <% if (e.backlogStatus == "Done") { %>
                   <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
-                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[8px] w-full "><%= e.backlogName %></h1>
+                    <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[9px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
                       <% e.assignedTo?.forEach(e => { %>
                       <% if (e == '') { %>
@@ -194,7 +194,7 @@
             </div>
             <div class="flex flex-col mt-3 gap-1">
               <h1 class="flex text-[10px]">Comment</h1>
-              <input class="flex rounded-lg hover:border-black border-2" type="text" name="" id="backlogComment">
+              <input class="flex text-sm rounded-lg hover:border-black border-2" type="text" name="" id="backlogComment">
             </div>
             <!-- List Comment -->
             <div id="commentsContainer" class="flex flex-col gap-2 p-2 mt-3 border-2 w-full h-40 overflow-scroll rounded-lg">
