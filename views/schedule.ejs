@@ -1,0 +1,91 @@
+<!-- Bagian yang mirip Navbar -->
+<div class="flex flex-row w-full h-14 pt-3">
+  <!-- Kiri -->
+  <div class="flex flex-row w-4/5">
+    <h1 class="pl-5 pt-2 text-xs font-medium">Dashboard</h1>
+    <h1 class="pl-2 pt-2 text-xs font-medium">/</h1>
+    <h1 class="pl-2 pt-2 text-xs font-light">Project</h1>
+  </div>
+  <!-- Kanan / Profil-->
+  <div class="dropdown inline-block relative mb-2">
+    <button class="flex w-full">
+      <span class="flex mr-1">
+        <div class="flex flex-row w-1/5 mb-2">
+          <!-- Avatar -->
+          <img class="flex w-16 my-auto mr-1" src="/assets/user_avatar.png" alt="">
+          <!-- Nama -->
+          <div class="flex flex-col my-auto ml-1">
+            <h1 class="flex text-sm font-semibold"><%- user.fName %> <%- user.lName %></h1>
+            <h1 id="username" class="hidden"><%- user.username %></h1>
+            <h1 class="flex text-xs"><%- user.email %></h1>
+          </div>
+        </div>
+      </span>
+    </button>
+    <ul class="dropdown-menu absolute hidden text-black items-center">
+      <li class="justify-center"><a class="w-44 rounded-b-xl hover:bg-green-200 py-2 px-4 block text-sm font-semibold justify-center" href="/signout">Sign Out</a></li>
+    </ul>
+  </div>
+</div>
+
+<% if (!projects.length) { %>
+<div class="flex-col justify-center items-center mt-2 mb-5 mx-9">
+  <label class="flex justify-center w-full h-11 px-4 transition border-2 border-black border-dashed rounded-lg appearance-none focus:outline-none">
+    <span class="flex items-center space-x-2">
+      <h1 class="font-medium text-[10px] text-black">Currently no project with sprint running</h1>
+    </span>
+  </label>
+</div>
+<% } else { %>
+<!-- Bagian Dashboard Project (SUDAH ADA PROJECT)-->
+<div id="projectContainer" class="flex flex-col w-full px-9 pt-5">
+  <div class="flex">
+    <h1 class="flex text-xs text-left font-bold">List of Project with Sprint Running</h1>
+  </div>
+  <div class="flex flex-row mt-3">
+    <div class="flex flex-row w-1/2 justify-start">
+    </div>
+    <div class="flex flex-row justify-end w-1/2">
+      <input class="rounded-lg w-36 h-[25px] placeholder:text-[8px] placeholder:pl-2 pb-1" placeholder="Search your project" type="text" name="" id="">
+    </div>
+
+  </div>
+  <!-- Bagian Card-Card -->
+  <div class="flex flex-row flex-wrap gap-3 mt-3">
+    <% projects.forEach(e => { %>
+    <div data-projectId="<%= e.projectId%>" class="flex flex-col w-72 h-52 bg-white rounded-lg p-4 hover:cursor-pointer">
+      <a href="/project/<%= e.projectId %>/timeline">
+        <h1 class="text-sm font-semibold"><%= e.projectName %></h1>
+      </a>
+      <div id="divStatus" class="flex w-[68px] h-5 bg-[#ADEEAC] rounded-md mt-2">
+        <h1 id="teksStatus" class="m-auto text-[9px] font-semibold text-[#258B22]">Completed</h1>
+      </div>
+      <div class="flex h-[72px] w-full mt-2">
+        <p class="text-[10px] text-justify my-auto"><%= e.projectDesc %></p>
+      </div>
+      <div class="flex flex-col mt-2">
+        <h1 class="text-[10px] font-semibold">Team Member</h1>
+        <div class="flex flex-row mt-1 gap-[2px]">
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white"><%= e.productOwner[0].toUpperCase() %></h1>
+          </div>
+          <% e.members.forEach(e => { %>
+          <div class="flex w-[22px] h-[22px] bg-gray-600 rounded-full">
+            <h1 class="mx-auto my-auto text-sm text-white"><%= e.username[0].toUpperCase() %></h1>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    <% } %>
+    <script>
+      const projectContainer = document.querySelector("#projectContainer")
+      projectContainer.addEventListener("click", (e) => {
+
+        if (e.srcElement.hasAttribute("data-projectId")) {
+
+          location.assign(`${window.location.origin}/project/${e.srcElement.dataset.projectid}/timeline`)
+        }
+      })
+    </script>

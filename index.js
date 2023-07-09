@@ -54,6 +54,7 @@ app.use("/signup", require("./controller/signup"));
 app.use("/signin", require("./controller/signin"));
 app.use("/dashboard", require("./controller/dashboard"));
 app.use("/project", require("./controller/project"));
+app.use("/schedule", require("./controller/schedule"));
 
 app.get("/", (req, res) => {
   res.redirect("/dashboard");
