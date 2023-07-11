@@ -125,6 +125,9 @@
                   <label class="text-sm" for="tiga">Role Name</label>
                   <div class="flex flex-row">
                     <div class="flex flex-col w-44">
+                      <% if (!roles.length) { %>
+                      <input id="rolesInput" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="">
+                      <% } %>
                       <% roles.forEach(e => { %>
                       <input id="rolesInput" data-rolesId="<%= e.roleId %>" class="flex rounded-md w-40 border-2 py-1.5 mr-4 mb-3" type="text" name="" value="<%= e.roleName %>">
                       <% }) %>
@@ -141,6 +144,7 @@
               </div>
               <div class="flex gap-x-3 self-start mt-4">
                 <button id="btnEditProject" data-projectId="<%= project.projectId %>" type="submit" class="bg-black text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Save</button>
+                <button id="btnDeleteProject" data-projectId="<%= project.projectId %>" class="bg-red-700 text-white hover:bg-slate-300 hover:text-black rounded-full py-2 px-4 text-sm">Delete Project</button>
               </div>
             </div>
           </div>
@@ -284,7 +288,34 @@
         alert(error.message)
         console.log(error);
       });
+  })
 
+  const btnDeleteProject = document.querySelector("#btnDeleteProject")
+  btnDeleteProject.addEventListener("click", (e) => {
+    if (window.confirm(`Are you sure ? This project will be unaccesible by any mean`)) {
+      fetch(`${window.location.origin}/project/${projectId}/delete`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+
+          })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === `error`) {
+            console.log(data)
+            alert(data.errors?.projectName.msg)
+            return
+          }
+          window.location.href = `${window.location.origin}/project/dashboard`
+        })
+        .catch((error) => {
+          alert(error.message)
+          console.log(error);
+        });
+    }
   })
 </script>
 <% } %>

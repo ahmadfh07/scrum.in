@@ -5,6 +5,7 @@ const Project = require("../model/project");
 const Role = require("../model/role");
 const Backlog = require("../model/productBacklog");
 const Sprint = require("../model/sprint");
+const Comment = require("../model/comment");
 const { body, validationResult, check } = require("express-validator");
 const ShortUniqueId = require("short-unique-id");
 const uuidRole = new ShortUniqueId();
@@ -213,6 +214,19 @@ router.post(
     }
   }
 );
+
+router.post("/:id/delete", async (req, res) => {
+  try {
+    const deletedProject = await Project.findOneAndDelete({ projectId: req.params.id });
+    const deletedSprints = await Sprint.deleteMany({ projectId: req.params.id });
+    const deletedComments = await Comment.deleteMany({ projectId: req.params.id });
+    const deletedBacklogs = await Backlog.deleteMany({ projectId: req.params.id });
+    const deletedRole = await Role.deleteMany({ projectId: req.params.id });
+    res.send({ status: "success" });
+  } catch (err) {
+    res.send({ status: "error", data: err.message });
+  }
+});
 
 router.use(
   "/:id/planning",

@@ -461,7 +461,7 @@
 
   planningContainer.addEventListener("click", function(e) {
     if (e.srcElement.classList.contains('delete-backlog')) {
-
+    if (window.confirm(`Are you sure ? This backlog will be unaccesible by any mean`)){
       fetch(`${window.location.origin}/project/${projectId}/planning/delete-backlog?id=${e.srcElement.dataset.backlogid}`, {
           method: "POST",
         })
@@ -477,6 +477,7 @@
         .catch((error) => {
           console.log(error);
         });
+    }
     }
 
     if (e.srcElement.classList.contains('backlog-item')) {
