@@ -88,7 +88,7 @@
     <div>
       <% if (!backlogs.length || !sprints.length) { %>
       <!-- JIKA BELUM ADA BACKLOG DAN SPRINT -->
-      <div class="<%= user.username != project.productOwner ? '' : 'backlog-modal-open' %> flex-col justify-center items-center mt-2 mb-5 mx-9">
+      <div class="<%= userRole != "Scrum Master" ? '' : 'backlog-modal-open' %> flex-col justify-center items-center mt-2 mb-5 mx-9">
         <span id="projectId" class="hidden"><%= project.projectId %></span>
         <h2 class="text-xs font-bold mt-10 mb-4">Backlog</h2>
         <label class="flex justify-center w-full h-11 px-4 transition border-2 border-black border-dashed rounded-lg appearance-none hover:cursor-pointer hover:border-gray-400 focus:outline-none">
@@ -96,7 +96,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-plus-lg my-auto mr-[2px]" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
             </svg>
-            <h1 class="font-medium text-[10px] text-black"> <%= user.username != project.productOwner ? 'Currently no plan, contact your Product Owner' : 'Click here to add your first backlog' %> and start managing your project </h1>
+            <h1 class="font-medium text-[10px] text-black"> <%= userRole != "Scrum Master" ? 'Currently no plan, contact your Product Owner' : 'Click here to add your first backlog' %> and start managing your project </h1>
           </span>
         </label>
       </div>
@@ -111,7 +111,7 @@
             <!-- Tulisan backlog dan button -->
             <div class="flex flex-row w-full justify-between mt-2">
               <h1 class="flex text-xs font-black ml-8 my-auto ">Backlog</h1>
-              <div id="btnNewbacklog" class="<% if (user.username != project.productOwner) { %> hidden <% } %>backlog-modal-open flex px-1 flex-row w-20 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer">
+              <div id="btnNewbacklog" class="<% if (userRole != "Scrum Master") { %> hidden <% } %>backlog-modal-open flex px-1 flex-row w-20 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" class="bi bi-plus-lg my-auto ml-1" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                 </svg>
@@ -124,13 +124,13 @@
               <div class="flex flex-col px-6 p-3" id="backlogsCotainer" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <% backlogs.forEach(e => { %>
                 <% if (e.sprintId == "") { %>
-                <div data-backlogId="<%= e._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (user.username == project.productOwner) { %> draggable="true" <% } %>ondragstart="dragStart(event)">
+                <div data-backlogId="<%= e._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (userRole == "Scrum Master") { %> draggable="true" <% } %>ondragstart="dragStart(event)">
                   <h1 data-backlogId="<%= e._id %>" class="backlog-item flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer"><%= e.backlogName %></h1>
                   <div class="flex flex-row w-1/6 gap-4">
                     <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
                       <h1 class="text-[8px] text-white m-auto"><%= e.storyPoint %></h1>
                     </div>
-                    <% if (user.username == project.productOwner) { %>
+                    <% if (userRole == "Scrum Master") { %>
                     <svg data-backlogId="<%= e._id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="delete-backlog bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
                       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                       <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -158,19 +158,21 @@
             <div class="flex flex-col w-full mx-auto bg-white rounded-md my-3 pr-4">
               <div class="flex flex-row w-full justify-between mt-2">
                 <h1 class="flex text-xs font-black ml-8 my-auto" id="judul-sprint">Sprint <%= index + 1 %></h1>
+                <% if (userRole == "Scrum Master") { %>
                 <button data-sprintId="<%= sprint._id %>" data-startDate="<%= sprint.startDate?.toISOString().split('T')[0] %>" data-finishDate="<%= sprint.finishDate?.toISOString().split('T')[0] %>" data-sprintGoal="<%= sprint.sprintGoal %>" class="sprint-modal-open flex items-center px-2 flex-row w-16 h-6 bg-[#4B6D5F] rounded hover:cursor-pointer text-[8px] text-white font-bold"> Start Sprint
                 </button>
+                <% } %>
               </div>
               <div id="sprintBacklogContainer" data-sprintId="<%= sprint._id %>" class="flex flex-col p-6" id="sprint1" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <% backlogs.forEach(backlog => { %>
                 <% if (backlog.sprintId == sprint._id) { %>
-                <div data-backlogId="<%= backlog._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (user.username == project.productOwner) { %> draggable="true" <% } %>ondragstart="dragStart(event)">
+                <div data-backlogId="<%= backlog._id %>" class="flex flex-row w-full mx-auto h-8 bg-slate-100 rounded-md my-2" id="task1" <% if (userRole == "Scrum Master") { %> draggable="true" <% } %>ondragstart="dragStart(event)">
                   <h1 data-backlogId="<%= backlog._id %>" class="backlog-item flex my-auto ml-4 text-[10px] w-5/6 hover:cursor-pointer"><%= backlog.backlogName %></h1>
                   <div class="flex flex-row w-1/6 gap-4">
                     <div class="flex h-4 w-4 my-auto rounded-full bg-[#4B6D5F] hover:cursor-pointer">
                       <h1 class="text-[8px] text-white m-auto"><%= backlog.storyPoint %></h1>
                     </div>
-                    <% if (user.username == project.productOwner) { %>
+                    <% if (userRole == "Scrum Master") { %>
                     <svg data-backlogId="<%= backlog._id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="delete-backlog bi bi-trash my-auto hover:cursor-pointer" viewBox="0 0 16 16">
                       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                       <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -192,7 +194,7 @@
             <% }) %>
           </div>
 
-          <% if (user.username == project.productOwner) { %>
+          <% if (userRole == "Scrum Master") { %>
           <div class="flex border-dashed border-2 rounded-lg w-full h-12 border-black mt-7 hover:cursor-pointer" id="tambah-sprint" onclick="nambahSprint()">
             <div class="flex flex-row m-auto">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="black" class="bi bi-plus-lg my-auto" viewBox="0 0 16 16">
@@ -217,7 +219,7 @@
               <label class="flex text-xs text-black">Total story point</label>
               <input value="<%= backlogs[0].storyPoint %>" id="editableStoryPoint" class="flex text-xs text-black ml-4 w-7 hover:bg-[#D9DCD9] rounded-lg" type="text">
             </div>
-            <% if (user.username == project.productOwner) { %>
+            <% if (userRole == "Scrum Master") { %>
             <div class="flex gap-x-3 self-start mt-6">
               <button id="btnSaveBacklogUpdate" data-backlogId="<%= backlogs[0]._id %>" type="submit" class="bg-[#4B6D5F] text-white hover:bg-slate-300 hover:text-black rounded-lg py-2 px-3 text-[10px]">Save Update</button>
             </div>

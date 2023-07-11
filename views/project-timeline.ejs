@@ -123,7 +123,7 @@
                 <div class="flex flex-col p-3" id="backlogsCotainer" data-topic="To Do" ondrop="drop(event)" ondragover="allowDrop(event)">
                   <% backlogs.forEach(e => { %>
                   <% if (e.backlogStatus == "To Do") { %>
-                  <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="true" ondragstart="dragStart(event)">
+                  <div data-backlogId="<%= e._id %>" class="flex flex-col p-1 w-full mx-auto bg-white rounded-md my-1 hover:cursor-pointer" id="Backlog1" draggable="<%= userRole != 'product owner' || userRole != "Scrum Master" ? 'true' : 'false' %>" ondragstart="dragStart(event)">
                     <h1 id="backlogItem" data-backlogId="<%= e._id %>" class="backlog-item flex my-auto text-[9px] w-full "><%= e.backlogName %></h1>
                     <div class="mt-1 flex flex-row h-3 w-full justify-start">
                       <% e.assignedTo?.forEach(e => { %>
@@ -208,22 +208,22 @@
 
           <!-- KANAN -->
           <div class="flex flex-col h-[460px] p-4 bg-white rounded-xl w-5/12">
-            <h1 id="BacklogName" class=" flex text-base font-semibold"><%= backlogs[0].backlogName %></h1>
+            <h1 id="BacklogName" class=" flex text-base font-semibold"><%= backlogs[0]?.backlogName %></h1>
             <div class="flex flex-col mt-3 gap-1">
               <h1 class="text-[10px]">Assigned</h1>
               <div class="flex flex-row gap-1">
                 <div id="assignedContainer" class="flex flex-row gap-1">
-                  <% backlogs[0].assignedTo.forEach(e => { %>
+                  <% backlogs[0]?.assignedTo.forEach(e => { %>
                   <% if (e == '') { %>
 
                   <% }else{ %>
                   <div id="<%= e.username %>" class="flex rounded-full w-5 h-5 bg-slate-500" data-username="<%= e.username %>" data-email="<%= e.email %>">
-                    <h1 class="flex text-sm text-white m-auto"><%= e.username[0].toUpperCase() %></h1>
+                    <h1 class="flex text-sm text-white m-auto"><%= e?.username[0].toUpperCase() %></h1>
                   </div>
                   <% } %>
                   <% }) %>
                 </div>
-                <div class="member-modal-open flex rounded-full w-5 h-5 border-2 border-dashed border-slate-500 hover:cursor-pointer">
+                <div class="<%= userRole != "Scrum Master" ? 'hidden' : '' %> member-modal-open flex rounded-full w-5 h-5 border-2 border-dashed border-slate-500 hover:cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" fill="currentColor" class="bi bi-person-plus m-auto" viewBox="0 0 16 16">
                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                     <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
@@ -233,11 +233,11 @@
             </div>
             <div class="flex flex-row mt-3">
               <h1 class="flex text-[10px]">Story Point</h1>
-              <h1 id="StoryPoint" class="flex text-[10px] ml-4"><%= backlogs[0].storyPoint %></h1>
+              <h1 id="StoryPoint" class="flex text-[10px] ml-4"><%= backlogs[0]?.storyPoint %></h1>
             </div>
             <div class="flex flex-col mt-3 gap-1">
               <h1 class="flex text-[10px]">Definition of Done</h1>
-              <p id="DefinitionOfDone" class="flex text-[10px]"><%= backlogs[0].definitionOfDone%></p>
+              <p id="DefinitionOfDone" class="flex text-[10px]"><%= backlogs[0]?.definitionOfDone%></p>
             </div>
             <div class="flex flex-col mt-3 gap-1">
               <h1 class="flex text-[10px]">Comment</h1>
@@ -246,7 +246,7 @@
             <!-- List Comment -->
             <div id="commentsContainer" class="flex flex-col gap-2 p-2 mt-3 border-2 w-full h-40 overflow-scroll rounded-lg">
               <% comments.forEach(e => { %>
-              <% if (e.backlogId == backlogs[0]._id) { %>
+              <% if (e?.backlogId == backlogs[0]?._id) { %>
               <div class="flex flex-col gap-1">
                 <div class=" flex flex-row gap-1">
                   <div class="flex rounded-full w-[15px] h-[15px] bg-slate-500">
@@ -259,7 +259,7 @@
               <% } %>
               <% }) %>
             </div>
-            <button id="btnSaveBacklogUpdate" data-backlogId="<%= backlogs[0]._id %>" data-sprintId="<%= backlogs[0].sprintId %>" class=" bg-[#4B6D5F] mt-2 hover:bg-[#7c9c8e] rounded-2xl w-14 h-8 text-[10px] text-white">Save</button>
+            <button id="btnSaveBacklogUpdate" data-backlogId="<%= backlogs[0]?._id %>" data-sprintId="<%= backlogs[0]?.sprintId %>" class=" bg-[#4B6D5F] mt-2 hover:bg-[#7c9c8e] rounded-2xl w-14 h-8 text-[10px] text-white">Save</button>
           </div>
         </div>
         <% } %>
