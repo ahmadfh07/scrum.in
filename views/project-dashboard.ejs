@@ -301,7 +301,7 @@
           alert(data.errors?.projectName.msg)
           return
         }
-        window.location.href = `${window.location.origin}/project/${data.projectId}`
+        window.location.href = `${window.location.origin}/project/${data.projectId}/overview`
       })
       .catch((error) => {
         console.log(error);
