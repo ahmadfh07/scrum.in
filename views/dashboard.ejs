@@ -42,16 +42,16 @@
                   <img class="w-7 h-7 m-auto" src="/public/assets/logo_scrumin_nt.png" alt="">
               </div> -->
         <div class="flex rounded-full w-7 h-7 bg-slate-500">
-          <h1 class="flex text-6 text-white m-auto"><%= projects[0].projectName[0].toUpperCase() %></h1>
+          <h1 class="flex text-6 text-white m-auto"><%= projects[0]?.projectName[0].toUpperCase() %></h1>
         </div>
         <div class="flex w-5/6 items-center ml-2">
-          <h1 class="text-sm font-semibold"><%= projects[0].projectName %></h1>
+          <h1 class="text-sm font-semibold"><%= projects[0]?.projectName %></h1>
         </div>
       </div>
       <!-- description -->
       <div class="my-2 h-12">
         <p class="text-[10px] text-justify px-2 font-medium">
-          <%= projects[0].projectDesc %>
+          <%= projects[0]?.projectDesc %>
         </p>
       </div>
       <!-- Progress Bar -->
@@ -73,15 +73,15 @@
                   <img class="w-7 h-7 m-auto" src="/public/assets/logo_scrumin_nt.png" alt="">
               </div> -->
         <div class="flex rounded-full w-7 h-7 bg-slate-500">
-          <h1 class="flex text-6 text-white m-auto"><%= projects[1].projectName[0].toUpperCase() %></h1>
+          <h1 class="flex text-6 text-white m-auto"><%= projects[1]?.projectName[0].toUpperCase() %></h1>
         </div>
         <div class="flex w-5/6 items-center ml-2">
-          <h1 class="text-sm font-semibold"><%= projects[1].projectName %></h1>
+          <h1 class="text-sm font-semibold"><%= projects[1]?.projectName %></h1>
         </div>
       </div>
       <!-- description -->
       <div class="my-2 h-12">
-        <p class="text-[10px] text-justify px-2 font-medium"><%= projects[1].projectDesc %></p>
+        <p class="text-[10px] text-justify px-2 font-medium"><%= projects[1]?.projectDesc %></p>
       </div>
       <!-- Progress Bar -->
       <!-- <div class="my-2 px-2 w-full">                       
